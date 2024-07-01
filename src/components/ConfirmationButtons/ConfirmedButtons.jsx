@@ -14,6 +14,7 @@ const ConfirmatorButtons = ({ value, setValue }) => {
   const [course, setCourse] = useState(null);
   const [crm, setCrm] = useState(null);
   const [phone, setPhone] = useState(null);
+  const [slot, setSlot] = useState(null);
 
   const appointments = useSelector(getConfirmatorAppointments);
   const error = useSelector(getConfirmatorError);
@@ -47,7 +48,7 @@ const ConfirmatorButtons = ({ value, setValue }) => {
                     const res = await getCourseIdByName(item.course).then(data=> setCourse(data.data.id)) 
                      setCrm(item.crm_link)
                      setPhone(item.phone)
-                    //setCourse(item.course_id)
+                      setSlot(item.slot_id)
                     return setValue({ ...value, [item.appointment_id]: i.btn });
                   }}
                   key={i.btn}
@@ -62,7 +63,7 @@ const ConfirmatorButtons = ({ value, setValue }) => {
           </div>
         ))}
       </Fade>
-      <PostponeModal appointmentId={isOpen} link={crm} age={0} phone={phone} courseId={course} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <PostponeModal appointmentId={isOpen} slotId={slot} link={crm} age={0} phone={phone} courseId={course} isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 };
