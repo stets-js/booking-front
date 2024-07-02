@@ -62,7 +62,7 @@ const App = () => {
       <Routes>
         {isAuthenticated ? (
           <>
-          {userRole === 3 && (
+          {(userRole === 3 || userRole === 4 || userRole === 5) && (
               <>
             <Route path={path.modals} element={<ModalsPage />} />
             <Route path={path.history} element={<History />}>
