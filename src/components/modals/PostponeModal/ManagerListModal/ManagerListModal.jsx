@@ -57,6 +57,7 @@ export default function ManagerListModal({
                       data.append("manager_id", item.manager_id);
                       data.append("message", message);
                       data.append("follow_up", item.follow_up);
+                      data.append("on_control", item.on_control);
                       data.append("postpone_role", userRole === 4 ? "caller" : userRole === 5 ? "confirmator" : userRole === 2 ? "manager" : "admin");
                       data.append("userId", userId);
                       return putAppointment(data).then(() => {

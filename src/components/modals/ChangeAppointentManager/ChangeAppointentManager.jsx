@@ -115,6 +115,7 @@ const ChangeAppointentManager = ({
     data.append("manager_id", manager.id);
     data.append("message", message);
     data.append("follow_up", false);
+    data.append("on_control", false);
     data.append("postpone_role", getPostponeRole(userRole));
     data.append("userId", userId);
     data.append("reason_postpone", selectedReason);
@@ -198,6 +199,7 @@ const ChangeAppointentManager = ({
                           data.append("manager_id", manager.id);
                           data.append("message", message);
                           data.append("follow_up", false);
+                          data.append("on_control", false);
                           data.append("postpone_role", userRole === 4 ? "caller" : userRole === 5 ? "confirmator" : userRole === 2 ? "manager" : "admin");
                           data.append("userId", userId);
                           data.append("reason_postpone", selectedReason);
