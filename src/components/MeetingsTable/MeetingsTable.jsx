@@ -32,6 +32,7 @@ const MeetingsTable = ({
   date,
   getNewTableData
 }) => {
+  console.log("table", table)
   const indefyTimedSlotText = (timeid) => {
     switch (timeid) {
       case 1:
@@ -159,9 +160,10 @@ const MeetingsTable = ({
       >
         {table.map((item) => {
           let tiemedSlot = undefined;
-
+      
           if (isListView) {
             tiemedSlot = item.manager_appointments.find((appointment) => {
+              
               return appointment.time === tableTime;
             });
           }
@@ -219,6 +221,8 @@ const MeetingsTable = ({
                       hourIndex={tiemedSlot.time}
                       colorId={tiemedSlot.status_id || tiemedSlot.status}
                       slotId={tiemedSlot.slot_id}
+                      isFollowUp={tiemedSlot.follow_up}
+                      isOnControl={tiemedSlot.on_control}
                     />
                   ) : (
                     item.manager_appointments.map((i) => (
@@ -239,6 +243,7 @@ const MeetingsTable = ({
                         hourIndex={i.time}
                         colorId={i.status_id || i.status}
                         isFollowUp={i.follow_up}
+                        isOnControl={i.on_control}
                         isFreeze={i.is_freeze}
                         onClickFn={() => {
                           Fn(item.manager_id, weekId, dayIndex, i.time)

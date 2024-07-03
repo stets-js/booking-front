@@ -4,8 +4,9 @@ import classNames from "classnames";
 import styles from "./MeetingsTableItem.module.scss";
 import ConsultationInfo from "../modals/ConsultationInfo/ConsultationInfo";
 import NewAppointment from "../modals/NewAppointment2/NewAppointment";
-import Star from "./Star"
-import Snowflake from "./Snowflake"
+import Star from "./Star";
+import Question from "./Question";
+import Snowflake from "./Snowflake";
 import { Link } from "react-router-dom";
 import { success, error, defaults } from "@pnotify/core";
 import {freezeSlot} from "../../helpers/slot/slot"
@@ -49,6 +50,7 @@ const MeetingsTableItem = ({
   selectedManagerIds,
   setSelectedManagerIds,
   isFollowUp,
+  isOnControl,
   handleReload,
   isFreeze
 }) => {
@@ -257,6 +259,7 @@ const MeetingsTableItem = ({
               </button>
             </div>
             {isFollowUp ? <div className={styles.asterix}><Star /></div> : null}
+            {isOnControl ? <div className={styles.question}><Question /></div> : null}
           </li>
           {modal === "appointment" && (
             // <NewAppointment
@@ -312,7 +315,9 @@ const MeetingsTableItem = ({
                 info
               </button>
             </div>
+            
             {isFollowUp ? <div className={styles.asterix}><Star /></div> : null}
+            {isOnControl ? <div className={styles.question}><Question /></div> : null}
           </li>
           {modal === "consultation" && (
             <ConsultationInfo
