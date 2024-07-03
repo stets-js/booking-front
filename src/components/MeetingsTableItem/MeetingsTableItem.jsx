@@ -49,6 +49,7 @@ const MeetingsTableItem = ({
   date,
   selectedManagerIds,
   setSelectedManagerIds,
+  currentSelectedStars,
   isFollowUp,
   isOnControl,
   handleReload,

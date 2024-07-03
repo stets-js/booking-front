@@ -9,9 +9,12 @@ export default function SortByBox({
   sortTextFunc,
   sortMan,
   sortMangFunc,
+  sortStars,
+  sortStarsFunc,
 }) {
   const [sortStatus, setSortStatus] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(false);
+  const [selectedStars, setSelectedStars] = useState(false);
 
   const changeSortStatus = () => {
     const curSortStatus = sortStatus;
@@ -31,6 +34,16 @@ export default function SortByBox({
     } else {
       setSelectedStatus(true);
       sortMangFunc(selectedStatus);
+    }
+  };
+  const changeSelectedStars = () => {
+    const curSelectStatus = selectedStars;
+    if (curSelectStatus) {
+      setSelectedStars(false);
+      sortStarsFunc(selectedStars);
+    } else {
+      setSelectedStars(true);
+      sortStarsFunc(selectedStars);
     }
   };
 
@@ -53,14 +66,18 @@ export default function SortByBox({
       ) : (
         <></>
       )}
+      {sortStars ? (
+        <>
+          <div className={selectedStatus ? styles.sortBox_on : styles.sortBox}>
+            <div className={styles.sortBoxText} onClick={changeSelectedStars}>
+              {sortStars}
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
-  {
-    /* <div className={styles.tick_container}>
-              <div className={styles.arrow_left}>{"<"}</div>
-              <div className={styles.arrow_right} style={{ cursor: "default" }}>
-                {"<"}
-              </div>
-            </div> */
-  }
+
 }

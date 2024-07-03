@@ -27,6 +27,7 @@ const MeetingsTable = ({
   isStatusSorted,
   isTableView,
   currentSelectedSortStatus,
+  currentSelectedStars,
   selectedManagerIds,
   setSelectedManagerIds,
   date,
@@ -69,6 +70,14 @@ const MeetingsTable = ({
       return (
         item.manager_appointments[tableTime - 8].status ||
         item.manager_appointments[tableTime - 8].status_id > 0
+      );
+    });
+  }
+  if (currentSelectedStars) {
+    table = table.filter((item) => {
+      console.log("iteeeem", item)
+      return (
+        item.manager_appointments[tableTime - 8].follow_up === true
       );
     });
   }
@@ -193,6 +202,7 @@ const MeetingsTable = ({
                     selectedManagerIds={selectedManagerIds}
                     setSelectedManagerIds={setSelectedManagerIds}
                     currentSelectedSortStatus={currentSelectedSortStatus}
+                    currentSelectedStars={currentSelectedStars}
                     isManagerSelectedFr={selectedManagerIds.includes(
                       item.manager_id
                     )}
@@ -211,6 +221,7 @@ const MeetingsTable = ({
                       selectedManagerIds={selectedManagerIds}
                       setSelectedManagerIds={setSelectedManagerIds}
                       currentSelectedSortStatus={currentSelectedSortStatus}
+                      currentSelectedStars={currentSelectedStars}
                       text={timedSlotText}
                       isManagerSelectedFr={selectedManagerIds.includes(
                         item.manager_id
@@ -235,6 +246,7 @@ const MeetingsTable = ({
                           item.manager_id
                         )}
                         currentSelectedSortStatus={currentSelectedSortStatus}
+                        currentSelectedStars={currentSelectedStars}
                         text={i.text}
                         weekId={weekId}
                         slotId={i.slot_id}

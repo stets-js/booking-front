@@ -19,6 +19,7 @@ function CurrentMeetingsPageList() {
   const [currentSortStatus, setcurrentSortStatus] = useState(false);
   const [selectedManagerIds, setSelectedManagerIds] = useState([]);
   const [currentSelectedSortStatus, setcurrentSelectedSortStatus] = useState(false);
+  const [currentSelectedStars, setCurrentSelectedStars] = useState(false);
   const styles = {
     marginRight: "auto",
     marginLeft: "auto",
@@ -90,6 +91,8 @@ function CurrentMeetingsPageList() {
         sortTextFunc={setcurrentSortStatus}
         sortMan={"Selected"}
         sortMangFunc={setcurrentSelectedSortStatus}
+        sortStars={"Stars"}
+        sortStarsFunc={setCurrentSelectedStars}
       />
       {isRenderTableAvailable ? (
         <>
@@ -123,6 +126,7 @@ function CurrentMeetingsPageList() {
           selectedManagerIds={selectedManagerIds}
           setSelectedManagerIds={setSelectedManagerIds}
           currentSelectedSortStatus={currentSelectedSortStatus}
+          currentSelectedStars={currentSelectedStars}
           table={currentTableData}
         />
         </>
