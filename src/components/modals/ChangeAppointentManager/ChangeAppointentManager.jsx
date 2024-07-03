@@ -32,6 +32,7 @@ const ChangeAppointentManager = ({
   isPostponed,
   closePostpone,
   isFollowUp,
+  isOnControl,
   appointmentSlotId,
   // selectedReason
 }) => {

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getGroups } from "../../../helpers/group/group";
 import { getCourses } from "../../../helpers/course/course";
-import { updateSlot, updateSlotFollowUp } from "../../../helpers/week/week";
+import { updateSlot, updateSlotFollowUp,updateSlotOnControl } from "../../../helpers/week/week";
 import { getAppointment } from "../../../helpers/appointment/appointment";
 import { getSlot } from "../../../helpers/slot/slot";
 import { postConsultationResult } from "../../../helpers/consultation/consultation";
@@ -56,6 +56,7 @@ const ConsultationInfo = ({
   //   get().then((data) => setAppointment(data.data));
   // }, []);
   const [followUp, setFollowUp] = useState("");
+  const [onControl, setOnControl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isOpenPostpone, setIsOpen] = useState(false);
 
@@ -67,6 +68,7 @@ const ConsultationInfo = ({
           const appointmentData = await getAppointment({ id: slotId });
           setAppointment(appointmentData.data);
           setFollowUp(appointmentData.data.follow_up);
+          setOnControl(appointmentData.data.on_control);
           setUnsuccessfulMessage(appointmentData.data.unsuccessful_message || "");
           setMessage(appointmentData.data.comments);
   
@@ -107,6 +109,7 @@ const ConsultationInfo = ({
         handleReload && handleReload();
       });
   };
+
   const updateFollowUp = () => {
     if(followUp !== "" && managerTable[dayIndex] && managerTable[dayIndex][hourIndex]){
       setIsLoading(true)
@@ -136,6 +139,38 @@ const ConsultationInfo = ({
           .catch((error) => {
             setIsLoading(false);
             console.error("Error updating follow-up:", error);
+          });
+      }
+  }
+  const updateOnControl = () => {
+    if(onControl !== "" && managerTable[dayIndex] && managerTable[dayIndex][hourIndex]){
+      setIsLoading(true)
+      updateSlotOnControl(managerId ? managerId : manId,
+      weekId,
+      dayIndex,
+      currentTable ? hourIndex : managerTable[dayIndex][hourIndex].time,
+      +result,
+      onControl).then(() => {
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.error("Error updating onControl:", error);
+      });
+    }
+      else if(followUp !== ""){
+        setIsLoading(true)
+        updateSlotOnControl(managerId ? managerId : manId,
+          weekId,
+          dayIndex,
+          currentTable ? hourIndex : managerTable[dayIndex][hourIndex].time,
+          +result,
+          onControl).then(() => {
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            setIsLoading(false);
+            console.error("Error updating onControl:", error);
           });
       }
   }
@@ -268,7 +303,7 @@ const ConsultationInfo = ({
                 onChange={(e) => setMessage(e.target.value)}
               ></textarea>
             </label>
-
+              <div className={styles.checkbox__wrapper}>
             <label className={styles.input__checkbox}>
               <input
                 className={styles.input__checkboxInput}
@@ -276,11 +311,24 @@ const ConsultationInfo = ({
                 checked={followUp}
                 onChange={() => setFollowUp(!followUp)}
               />
-              <p className={styles.input__checkboxLabel}>Follow up</p>
+              <p className={styles.input__checkboxLabel}>Перенос</p>
               {isLoading ? <TailSpin height="25px" width="25px" color="#999DFF" /> : null}
             </label>
-              <button className={styles.btn__followUp} type="button" onClick={updateFollowUp}>Update</button>
-            
+              <button className={styles.btn__followUp} type="button" onClick={updateFollowUp}>Update Перенос</button>
+              </div>
+              <div className={styles.checkbox__wrapper}>
+              <label className={styles.input__checkbox}>
+              <input
+                className={styles.input__checkboxInput}
+                type="checkbox"
+                checked={onControl}
+                onChange={() => setOnControl(!onControl)}
+              />
+              <p className={styles.input__checkboxLabel}>На контроль</p>
+              {isLoading ? <TailSpin height="25px" width="25px" color="#999DFF" /> : null}
+            </label>
+              <button className={styles.btn__followUp} type="button" onClick={updateOnControl}>Update На контроль</button>
+              </div>
             {/* <label className={styles.input__label}>
               <p className={styles.input__label}>Some Text</p>
             </label> */}
@@ -301,6 +349,7 @@ const ConsultationInfo = ({
         weekId={weekId}
         message={message}
         isFollowUp={followUp}
+        isOnControl={onControl}
       />}
     </>
   );

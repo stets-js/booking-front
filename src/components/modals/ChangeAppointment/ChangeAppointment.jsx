@@ -29,7 +29,8 @@ const ChangeAppointment = ({
   slotId,
   messageInit,
   age,
-  isFollowUp
+  isFollowUp,
+  isOnControl,
 }) => {
   const [isOpenPostpone, setIsOpen] = useState(false);
   const [date, setDate] = useState("");
@@ -43,6 +44,7 @@ const ChangeAppointment = ({
   const [phone, setPhone] = useState("");
   const [slot, setSlot] = useState("");
   const [followUp, setFollowUp] = useState(false);
+  const [onControl, setOnControl] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const userRole = useSelector((state) => state.auth.user.role);
@@ -58,7 +60,8 @@ const ChangeAppointment = ({
     setManagerId(managerIdInit)
     setAge(age)
     setFollowUp(isFollowUp)
-  }, [course,number,messageInit,crm,slotId,manager,managerIdInit,age,isFollowUp]);
+    setOnControl(isOnControl)
+  }, [course,number,messageInit,crm,slotId,manager,managerIdInit,age,isFollowUp,isOnControl]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,6 +92,7 @@ const ChangeAppointment = ({
         message={message}
         date={date}
         isFollowUp={followUp}
+        isOnControl={onControl}
       />
       {isOpen && (
         <Modal open={isOpen} onClose={handleClose}>
@@ -113,6 +117,7 @@ const ChangeAppointment = ({
               data.append("message", message);
               data.append("date", date);
               data.append("follow_up", followUp);
+              data.append("on_control", onControl);
               data.append("postpone_role", userRole === 4 ? "caller" : userRole === 5 ? "confirmator" : userRole === 2 ? "manager" : "admin");
               data.append("userId", userId);
               return putAppointment(data).finally(() => {
@@ -124,6 +129,7 @@ const ChangeAppointment = ({
                 setSlot("");
                 setManagerId("");
                 setFollowUp(false);
+                setOnControl(false);
                 setIsLoading(false);
                 handleClose();
               }).catch((err) => {
@@ -169,6 +175,7 @@ const ChangeAppointment = ({
                 phone={phone}
                 message={message}
                 isFollowUp={followUp}
+                isOnControl={onControl}
                 appointmentSlotId={slotId}
               />
             ) : null}
@@ -230,7 +237,16 @@ const ChangeAppointment = ({
                 checked={followUp}
                 onChange={() => setFollowUp(!followUp)}
               />
-              <p className={styles.input__checkboxLabel}>Follow up</p>
+              <p className={styles.input__checkboxLabel}>Перенос</p>
+            </label>
+            <label className={styles.input__checkbox}>
+              <input
+                className={styles.input__checkboxInput}
+                type="checkbox"
+                checked={onControl}
+                onChange={() => setOnControl(!onControl)}
+              />
+              <p className={styles.input__checkboxLabel}>На контроль</p>
             </label>
           </Form>
         </Modal>

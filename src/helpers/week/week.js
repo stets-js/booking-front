@@ -102,6 +102,19 @@ const updateSlotFollowUp = (managerId, weekId, dayIndex, slotHour, colorId, foll
       throw err;
     });
 };
+const updateSlotOnControl = (managerId, weekId, dayIndex, slotHour, colorId, onControl) => {
+  return axios
+    .post(
+      `/update_slot_on_control/${managerId}/${weekId}/${dayIndex}/${slotHour}/${colorId}/${onControl}`
+    )
+    .then((res) => res.data)
+    .catch((err) => {
+      error(
+        `${err.response.data.message ? err.response.data.message : err.message}`
+      );
+      throw err;
+    });
+};
 
 const saveTable = (managerId, tableCredential) => {
   return axios
@@ -162,4 +175,5 @@ export {
   getCallerWorkWeekByCourse,
   getCallerCurrentWeek3,
   updateSlotFollowUp,
+  updateSlotOnControl,
 };

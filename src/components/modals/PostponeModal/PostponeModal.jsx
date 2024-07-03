@@ -43,6 +43,7 @@ export default function PostponeModal({
   day,
   hour,
   isFollowUp,
+  isOnControl,
 }) {
   const [callerId, setCallerId] = useState(null);
   const [error, setError] = useState("");
@@ -115,6 +116,7 @@ export default function PostponeModal({
             isPostponed={true}
             closePostpone={onClose}
             isFollowUp={isFollowUp}
+            isOnControl={isOnControl}
             appointmentSlotId={slotId}
             // selectedReason={selectedReason}
           />
