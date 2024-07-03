@@ -26,8 +26,8 @@ import History from "./pages/SuperAdmin/History";
 import AuthLogs from "./pages/SuperAdmin/AuthLogs";
 import ConsultationLogs from "./pages/SuperAdmin/ConsultationLogs";
 import SlotHistory from "./pages/SuperAdmin/SlotHistory";
-import ManagersAnalytics from './pages/SuperAdmin/ManagersAnalytic';
-import GoogleSheets from './pages/SuperAdmin/GoogleSheets';
+import ManagersAnalytics from "./pages/SuperAdmin/ManagersAnalytic";
+import GoogleSheets from "./pages/SuperAdmin/GoogleSheets";
 import ManagerPage from "./pages/Manager/ManagerPage";
 import ConsultationsPage from "./pages/Manager/ConsultationsPage";
 import PlanningPage from "./pages/Manager/PlanningPage";
@@ -46,7 +46,9 @@ const ProtectedRoute = ({ children }) => {
   const loggedInUserId = useSelector((state) => state.auth.user.id);
 
   if (managerId !== String(loggedInUserId)) {
-    return <Navigate to={`/manager/${loggedInUserId}/consultations/`} replace />;
+    return (
+      <Navigate to={`/manager/${loggedInUserId}/consultations/`} replace />
+    );
   }
 
   return children;
@@ -62,47 +64,88 @@ const App = () => {
       <Routes>
         {isAuthenticated ? (
           <>
-          {(userRole === 3 || userRole === 4 || userRole === 5) && (
+            {(userRole === 3 || userRole === 4 || userRole === 5) && (
               <>
-            <Route path={path.modals} element={<ModalsPage />} />
-            <Route path={path.history} element={<History />}>
-              <Route path={path.authorization} element={<AuthLogs />} />
-              <Route path={path.ik} element={<ConsultationLogs />} />
-              <Route path={path.slotHistory} element={<SlotHistory />} />
-              <Route path={path.googleSheets} element={<GoogleSheets />} />
-            </Route>
-            <Route path={path.currentManagers} element={<CurrentMeetingsPage />} />
-            <Route path={path.currentManagersList} element={<CurrentMeetingsPageList />} />
-            <Route path={path.currentManagersTable} element={<CurrentMeetingsPageTable />} />
-            <Route path={path.managersAnalytics} element={<ManagersAnalytics />} />
-            <Route path={path.admin} element={<Navigate to={path.users} />} />
-            <Route path={path.admin} element={<AdminPage />}>
-              <Route path={path.users} element={<AdminUsersPage />} />
-              <Route path={path.groups} element={<AdminGroupsPage />} />
-              <Route path={path.courses} element={<AdminCoursesPage />} />
-              <Route path={path.actions} element={<AdminActionsPage />} />
-              <Route path={path.crm} element={<CrmPage />} />
-            </Route>
+                <Route path={path.modals} element={<ModalsPage />} />
+                <Route path={path.history} element={<History />}>
+                  <Route path={path.authorization} element={<AuthLogs />} />
+                  <Route path={path.ik} element={<ConsultationLogs />} />
+                  <Route path={path.slotHistory} element={<SlotHistory />} />
+                  <Route path={path.googleSheets} element={<GoogleSheets />} />
+                </Route>
+                <Route
+                  path={path.currentManagers}
+                  element={<CurrentMeetingsPage />}
+                />
+                <Route
+                  path={path.currentManagersList}
+                  element={<CurrentMeetingsPageList />}
+                />
+                <Route
+                  path={path.currentManagersTable}
+                  element={<CurrentMeetingsPageTable />}
+                />
+                <Route
+                  path={path.managersAnalytics}
+                  element={<ManagersAnalytics />}
+                />
+                <Route
+                  path={path.admin}
+                  element={<Navigate to={path.users} />}
+                />
+                <Route path={path.admin} element={<AdminPage />}>
+                  <Route path={path.users} element={<AdminUsersPage />} />
+                  <Route path={path.groups} element={<AdminGroupsPage />} />
+                  <Route path={path.courses} element={<AdminCoursesPage />} />
+                  <Route path={path.actions} element={<AdminActionsPage />} />
+                  <Route path={path.crm} element={<CrmPage />} />
+                </Route>
 
-            {userRole === 3 && <Route path={path.all} element={<Navigate to={path.superAdmin} />} />}
-            <Route path={path.superAdmin} element={<Navigate to={path.users} />} />
-            <Route path={path.superAdmin} element={<SuperAdministratorPage />}>
-              <Route path={path.users} element={<UsersPage />} />
-              <Route path={path.groups} element={<GroupsPage />} />
-              <Route path={path.courses} element={<CoursesPage />} />
-              <Route path={path.actions} element={<ActionsPage />} />
-              <Route path={path.crm} element={<CrmPage />} />
-            </Route>
-            </>
+                {userRole === 3 && (
+                  <Route
+                    path={path.all}
+                    element={<Navigate to={path.superAdmin} />}
+                  />
+                )}
+                <Route
+                  path={path.superAdmin}
+                  element={<Navigate to={path.users} />}
+                />
+                <Route
+                  path={path.superAdmin}
+                  element={<SuperAdministratorPage />}
+                >
+                  <Route path={path.users} element={<UsersPage />} />
+                  <Route path={path.groups} element={<GroupsPage />} />
+                  <Route path={path.courses} element={<CoursesPage />} />
+                  <Route path={path.actions} element={<ActionsPage />} />
+                  <Route path={path.crm} element={<CrmPage />} />
+                </Route>
+              </>
             )}
 
             {userRole === 2 && (
               <>
                 {userRole === 2 && (
-                  <Route path={path.all} element={<Navigate to={`manager/${userId}/consultations/`} />} />
+                  <Route
+                    path={path.all}
+                    element={
+                      <Navigate to={`manager/${userId}/consultations/`} />
+                    }
+                  />
                 )}
-                <Route path={path.manager} element={<ProtectedRoute><ManagerPage /></ProtectedRoute>}>
-                  <Route path={path.consultations} element={<ConsultationsPage />} />
+                <Route
+                  path={path.manager}
+                  element={
+                    <ProtectedRoute>
+                      <ManagerPage />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route
+                    path={path.consultations}
+                    element={<ConsultationsPage />}
+                  />
                   <Route path={path.planning} element={<PlanningPage />} />
                   <Route path={path.analytics} element={<Analytics />} />
                   <Route path={path.workingSlots} element={<WorkingSlots />} />
@@ -112,34 +155,60 @@ const App = () => {
             )}
             {userRole === 3 && (
               <>
-            {/* {userRole === 2 && <Route path={path.all} element={<Navigate to={`manager/${userId}/consultations/`} />} />} */}
-            <Route path={path.manager} element={<ManagerPage />}>
-              <Route path={path.consultations} element={<ConsultationsPage />} />
-              <Route path={path.planning} element={<PlanningPage />} />
-              <Route path={path.crm} element={<CrmPage />} />
-              <Route path={path.analytics} element={<Analytics />} />
-              <Route path={path.workingSlots} element={<WorkingSlots />} />
-            </Route>
-            </>
+                {/* {userRole === 2 && <Route path={path.all} element={<Navigate to={`manager/${userId}/consultations/`} />} />} */}
+                <Route path={path.manager} element={<ManagerPage />}>
+                  <Route
+                    path={path.consultations}
+                    element={<ConsultationsPage />}
+                  />
+                  <Route path={path.planning} element={<PlanningPage />} />
+                  <Route path={path.crm} element={<CrmPage />} />
+                  <Route path={path.analytics} element={<Analytics />} />
+                  <Route path={path.workingSlots} element={<WorkingSlots />} />
+                </Route>
+              </>
             )}
 
             {(userRole === 5 || userRole === 3) && (
               <>
                 {userRole === 5 && (
-                  <Route path={path.all} element={<Navigate to={`confirmator/${userId}/`} />} />
+                  <Route
+                    path={path.all}
+                    element={<Navigate to={`confirmator/${userId}/`} />}
+                  />
                 )}
                 <Route path={path.confirmator} element={<ConfirmatorPage />} />
                 <Route path={path.confirmed} element={<ConfirmedPage />} />
                 <Route path={path.pageCrm} element={<CrmPage page />} />
+                <Route path={path.manager} element={<ManagerPage />}>
+                  <Route
+                    path={path.consultations}
+                    element={<ConsultationsPage />}
+                  />
+                  <Route path={path.planning} element={<PlanningPage />} />
+                  <Route path={path.crm} element={<CrmPage />} />
+                </Route>
               </>
             )}
 
             {(userRole === 4 || userRole === 3) && (
               <>
                 {userRole === 4 && (
-                  <Route path={path.all} element={<Navigate to={`caller/${userId}/`} />} />
+                  <Route
+                    path={path.all}
+                    element={<Navigate to={`caller/${userId}/`} />}
+                  />
                 )}
                 <Route path={path.caller} element={<CallerPage />} />
+                <Route path={path.pageCrm} element={<CrmPage page />} />
+                <Route path={path.manager} element={<ManagerPage />}>
+                  <Route
+                    path={path.consultations}
+                    element={<ConsultationsPage />}
+                  />
+                  <Route path={path.planning} element={<PlanningPage />} />
+                  <Route path={path.crm} element={<CrmPage />} />
+                </Route>
               </>
             )}
 
