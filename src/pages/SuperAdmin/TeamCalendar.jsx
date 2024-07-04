@@ -29,7 +29,7 @@ export default function TeamCalendar() {
     if (weekId) {
       dispatch(getTeamCalendarWeek({weekId}));
     }
-  }, [weekId, dispatch]);
+  }, [dispatch]);
 
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
   function setDayIndex(num) {
@@ -54,16 +54,16 @@ export default function TeamCalendar() {
         <BgWrapper top={-160} />
         <section className={styles.tableSection}>
           {dataLoading ? <div className={styles.loadingBackdrop}></div> : null}
-          <DatePicker  tableDate={tableDate} />
+          <DatePicker changeDateFn={getTeamCalendarWeek} tableDate={tableDate} caller />
           {window.innerWidth > 1100 ? (
-            <Days />
+            <Days caller/>
           ) : (
-            <DaysPicker setDayIndex={setDayIndex} />
+            <DaysPicker setDayIndex={setDayIndex} caller/>
           )}
           {window.innerWidth > 1100 ? (
             <Table table={table} weekId={weekId} teamCalendar/>
           ) : (
-            <DayTable weekId={weekId} table={table[currentDayIndex]} dayIndex={currentDayIndex} />
+            <DayTable weekId={weekId} table={table[currentDayIndex]} dayIndex={currentDayIndex} teamCalendar />
           )}
         </section>
       </div>

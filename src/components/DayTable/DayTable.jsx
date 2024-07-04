@@ -19,6 +19,7 @@ const DayTable = ({
   dayIndex,
   handleReload,
   courseId,
+  teamCalendar,
 }) => {
   useEffect(() => {});
   const managerLoading = useSelector(isManagerLoading);
@@ -61,7 +62,22 @@ const DayTable = ({
                   onClickBtnStart={() => onClickSlotFn(dayIndex, hourIndex)}
                   handleReload={handleReload}
                 />
-              ) : (
+              ) : teamCalendar? (
+                <TableItem
+                  isAppointment={isAppointment}
+                  postponed={postponed}
+                  onClickFn={onClickSlotFn}
+                  data={item.time}
+                  weekId={weekId}
+                  colorId={item.amount}
+                  teamCalendar={teamCalendar}
+                  hourIndex={table[hourIndex].time}
+                  slotId={item.slot_id}
+                  dayIndex={dayIndex}
+                  slots={item?.slots}
+                  courseId={courseId}
+                  />
+              ):(
                 <TableItem
                   onClickFn={() => onClickSlotFn(dayIndex, hourIndex)}
                   data={item.time}

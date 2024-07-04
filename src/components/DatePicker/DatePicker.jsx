@@ -10,7 +10,7 @@ import { Fade } from "react-awesome-reveal";
 import { getWeekId } from "../../redux/manager/manager-selectors";
 import { getWeekId as getCallerWeekId } from "../../redux/caller/caller-selectors";
 
-const DatePicker = ({ tableDate, changeDateFn, caller, courseId }) => {
+const DatePicker = ({ tableDate, changeDateFn, caller, courseId, teamCalendar }) => {
   const { managerId } = useParams();
   const dispatch = useDispatch();
   const currentWeekId = useSelector(getWeekId);
@@ -33,7 +33,7 @@ const DatePicker = ({ tableDate, changeDateFn, caller, courseId }) => {
     caller ? callerWeekId +=1 : weekId += 1;
     caller
       ? dispatch(changeDateFn({ weekId: callerWeekId, courseId }))
-      : dispatch(changeDateFn({ managerId, weekId }));
+      : teamCalendar? dispatch(changeDateFn({ weekId: callerWeekId })) : dispatch(changeDateFn({ managerId, weekId }));
   };
 
   const onClickArrowLeft = (e) => {
@@ -42,7 +42,7 @@ const DatePicker = ({ tableDate, changeDateFn, caller, courseId }) => {
     caller ? callerWeekId -=1 : weekId -= 1;
     caller
       ? dispatch(changeDateFn({ weekId: callerWeekId, courseId }))
-      : dispatch(changeDateFn({ managerId, weekId }));
+      : teamCalendar? dispatch(changeDateFn({ weekId: callerWeekId })) : dispatch(changeDateFn({ managerId, weekId }));
   };
   useEffect(() => {
     setDate(new Date(tableDate));
