@@ -24,8 +24,8 @@ const Table = ({
   teamCalendar,
 }) => {
   
-
-  // useEffect(() => {});
+console.log("table", table)
+  useEffect(() => {}, [table]);
   const managerLoading = useSelector(isManagerLoading);
   const callerLoading = useSelector(getCallerLoading);
   return (
@@ -40,7 +40,7 @@ const Table = ({
         
           
           return day.map((item, hourIndex) => {
-            
+              
             return (
               <Fragment key={hourIndex}>
                 {caller ? (
@@ -81,7 +81,7 @@ const Table = ({
                   weekId={weekId}
                   colorId={item.amount}
                   hourIndex={table[dayIndex][hourIndex].time}
-                  slotId={item.slots && item.slots[0].id}
+                  slotId={item.slots && item.slots[0]?.id}
                   dayIndex={dayIndex}
                   slots={item?.slots}
                   onPostpone={onPostpone}

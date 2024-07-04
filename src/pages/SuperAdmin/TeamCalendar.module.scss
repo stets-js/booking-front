@@ -1,0 +1,69 @@
+@import "../../styles/variables.scss";
+
+.main__wrapper {
+    flex-grow: 1;
+    // margin-bottom: 200px;
+}
+
+.tableSection {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 72px;
+  
+    position: relative;
+}
+
+.loadingBackdrop {
+    width: 100%;
+    height: 100%;
+    background-color:rgba(255, 255, 255, 0.7);
+    transition: backdrop-filter 0.2s;
+    backdrop-filter: blur(50px) grayscale(100%) opacity(50%);
+    position: absolute;
+    z-index: 11000;
+}
+
+.teams__select{
+    margin: 0px auto 30px;
+    width: 200px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: $grey;
+  transition: all 1s;
+  cursor: pointer;
+  display: grid;
+  grid-template-areas: "select";
+  font-size: 20px;
+  font-family: $poppins;
+  padding: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 20px 20px; /* Розмір стрілки */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23000"><path d="M7 10l5 5 5-5z"/></svg>');
+}
+.managers__select{
+    margin: 0px auto 30px;
+    width: 300px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: $grey;
+  transition: all 1s;
+  cursor: pointer;
+  display: grid;
+  grid-template-areas: "select";
+  font-size: 20px;
+  font-family: $poppins;
+  padding: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 20px 20px; /* Розмір стрілки */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23000"><path d="M7 10l5 5 5-5z"/></svg>');
+}

@@ -161,9 +161,18 @@ const getWeekIdByTableDate = (tableDate) => {
     });
 };
 
-const getTeamsWorkWeek = (weekId) => {
+const getTeamsWorkWeek = (weekId, team = null, manager = null) => {
+  let url = `/get_week_team_calendar/${weekId}`;
+  if (team !== null && manager !== null) {
+    url += `?team=${team}&manager=${manager}`;
+  } else if (team !== null) {
+    url += `?team=${team}`;
+  } else if (manager !== null) {
+    url += `?manager=${manager}`;
+  }
+
   return axios
-    .get(`/get_week_team_calendar/${weekId}`)
+    .get(url)
     .then((res) => res.data)
     .catch((error) => {
       throw error;

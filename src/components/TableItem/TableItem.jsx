@@ -25,11 +25,9 @@ const TableItem = ({
   callerName,
   teamCalendar
 }) => {
-
-
-
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState("");
+
   const activeClassnames = (colorId) => {
     return classNames(styles.item, {
       [styles.grayColor]: +colorId === 0,
@@ -48,7 +46,7 @@ const TableItem = ({
       [styles.callerYellowColor]: +colorId === 2,
       [styles.callerOrangeColor]: +colorId === 1,
       [styles.callerRedColor]: +colorId === 0,
-      [styles.callerGreenColor]: +colorId >= 4 && +colorId <=200,
+      [styles.callerGreenColor]: +colorId >= 4 && +colorId <= 200,
       [styles.callerLightGreenColor]: +colorId === 3,
       [styles.callerLightGreyColor]: +colorId === 202,
     });
@@ -59,12 +57,14 @@ const TableItem = ({
       [styles.callerFreeYellowColor]: +colorId === 2,
       [styles.callerFreeOrangeColor]: +colorId === 1,
       [styles.callerFreeRedColor]: +colorId === 0,
-      [styles.callerFreeGreenColor]: +colorId >= 4 && +colorId <=200,
+      [styles.callerFreeGreenColor]: +colorId >= 4 && +colorId <= 200,
       [styles.callerFreeLightGreenColor]: +colorId === 3,
       [styles.callerFreeLightGreyColor]: +colorId === 202,
     });
   };
+
   const formattedDate = new Date().toISOString().slice(0, 10);
+
   return (
     <>
       {caller ? (
@@ -84,10 +84,10 @@ const TableItem = ({
               }
             }}
             key={dayIndex}
-            className={activeCallerClassnames(slots ? slots[0].date < formattedDate ? 202 : colorId : colorId)}
+            className={activeCallerClassnames(slots && slots[0] ? slots[0].date < formattedDate ? 202 : colorId : colorId)}
           >
             {`${data}:00`}
-            <div className={activeCallerFreeClassnames(slots ? slots[0].date < formattedDate ? 202 : colorId : colorId)}>{colorId}</div>
+            <div className={activeCallerFreeClassnames(slots && slots[0] ? slots[0].date < formattedDate ? 202 : colorId : colorId)}>{colorId}</div>
           </li>
           {modal === "appointment" && !postponed && (
             <NewAppointment
@@ -153,7 +153,6 @@ const TableItem = ({
                 </button>
               </div>
             </li>
-
             {modal === "consultation" && (
               <ConsultationInfo
                 dayIndex={dayIndex}
@@ -168,31 +167,30 @@ const TableItem = ({
           </>
         ) : colorId === 2 ? (
           <>
-          <li className={activeClassnames(colorId)}>
-            {`${data}:00`}
-            <div className={styles.hover_buttons}>
-              <button
-                className={styles.only_info_button}
-                type="button"
-                data-modal="working"
-                onClick={() => {
-                  setIsOpen(!isOpen);
-                  setModal("working");
-                }}
-              >
-                info
-              </button>
-            </div>
-          </li>
-
-          {modal === "working" && (
-            <WorkingInfo
-              slotId={slotId}
-              isOpen={isOpen}
-              handleClose={() => setIsOpen(!isOpen)}
-            />
-          )}
-        </>
+            <li className={activeClassnames(colorId)}>
+              {`${data}:00`}
+              <div className={styles.hover_buttons}>
+                <button
+                  className={styles.only_info_button}
+                  type="button"
+                  data-modal="working"
+                  onClick={() => {
+                    setIsOpen(!isOpen);
+                    setModal("working");
+                  }}
+                >
+                  info
+                </button>
+              </div>
+            </li>
+            {modal === "working" && (
+              <WorkingInfo
+                slotId={slotId}
+                isOpen={isOpen}
+                handleClose={() => setIsOpen(!isOpen)}
+              />
+            )}
+          </>
         ) : (
           <li className={activeClassnames(colorId)}>{`${data}:00`}</li>
         )
@@ -200,10 +198,10 @@ const TableItem = ({
         <>
           <li
             key={dayIndex}
-            className={activeCallerClassnames(slots ? slots[0].date < formattedDate ? 202 : colorId : colorId)}
+            className={activeCallerClassnames(slots && slots[0] ? slots[0].date < formattedDate ? 202 : colorId : colorId)}
           >
             {`${data}:00`}
-            <div className={activeCallerFreeClassnames(slots ? slots[0].date < formattedDate ? 202 : colorId : colorId)}>{colorId}</div>
+            <div className={activeCallerFreeClassnames(slots && slots[0] ? slots[0].date < formattedDate ? 202 : colorId : colorId)}>{colorId}</div>
           </li>
         </>
       ) : (
