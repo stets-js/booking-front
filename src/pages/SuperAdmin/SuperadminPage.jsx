@@ -17,6 +17,7 @@ const SuperAdministrator = () => {
           { text: "Search by CRM", path: path.crm },
           { text: "Current Meetings", path: path.currentManagers },
           { text: "History", path: path.history },
+          { text: "Team calendar", path: path.teamCalendar },
             
         ]}
       />

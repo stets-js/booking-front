@@ -17,6 +17,7 @@ import {
   getCurrentWorkWeek,
   getCallerWorkWeekByCourse,
   getCallerCurrentWeek3,
+  getTeamsWorkWeek,
 } from "../../helpers/week/week";
 import { defaults } from "@pnotify/core";
 defaults.delay = 1000;
@@ -68,6 +69,23 @@ const getCallerWeek = createAsyncThunk(
   GET_WEEK,
   ({ weekId }, { rejectWithValue }) => {
     return getCallerWorkWeek(weekId)
+      .then((data) => data)
+      .catch((data) => {
+        error(
+          `${
+            data.response.data.message
+              ? data.response.data.message
+              : data.message
+          }`
+        );
+        return rejectWithValue(data.message);
+      });
+  }
+);
+const getTeamCalendarWeek = createAsyncThunk(
+  GET_WEEK,
+  ({ weekId }, { rejectWithValue }) => {
+    return getTeamsWorkWeek(weekId)
       .then((data) => data)
       .catch((data) => {
         error(
@@ -163,4 +181,5 @@ export {
   getCallerTable,
   getCallerWeekByCourse,
   getCallerCurrentWeekByCourse,
+  getTeamCalendarWeek,
 };

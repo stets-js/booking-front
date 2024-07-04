@@ -30,5 +30,6 @@ const path = {
   analytics: "analytics/",
   workingSlots: "working_slots/",
   managersAnalytics: "/managers_analytics/",
+  teamCalendar: "/team_calendar/",
 };
 export default path;

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { isManagerLoading } from "../../redux/manager/manager-selectors";
 import { getCallerLoading } from "../../redux/caller/caller-selectors";
 import { TailSpin } from "react-loader-spinner";
+import TeamCalendar from "../../pages/SuperAdmin/TeamCalendar";
 
 
 const Table = ({
@@ -20,6 +21,7 @@ const Table = ({
   handleReload,
   courseId,
   callerName,
+  teamCalendar,
 }) => {
   
 
@@ -70,7 +72,24 @@ const Table = ({
                     onClickBtnStart={() => onClickSlotFn(dayIndex, hourIndex)}
                     handleReload={handleReload}
                   />
-                ) : (
+                ) : teamCalendar ? (
+                  <TableItem
+                    isAppointment={isAppointment}
+                  postponed={postponed}
+                  onClickFn={onClickSlotFn}
+                  data={item.time}
+                  weekId={weekId}
+                  colorId={item.amount}
+                  hourIndex={table[dayIndex][hourIndex].time}
+                  slotId={item.slots && item.slots[0].id}
+                  dayIndex={dayIndex}
+                  slots={item?.slots}
+                  onPostpone={onPostpone}
+                  courseId={courseId}
+                  callerName={callerName}
+                    teamCalendar={teamCalendar}
+                  />
+                ):(
                   <TableItem
                     onClickFn={() => onClickSlotFn(dayIndex, hourIndex)}
                     data={item.time}

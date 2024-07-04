@@ -22,7 +22,8 @@ const TableItem = ({
   slots,
   handleReload,
   courseId,
-  callerName
+  callerName,
+  teamCalendar
 }) => {
 
 
@@ -195,6 +196,16 @@ const TableItem = ({
         ) : (
           <li className={activeClassnames(colorId)}>{`${data}:00`}</li>
         )
+      ) : teamCalendar ? (
+        <>
+          <li
+            key={dayIndex}
+            className={activeCallerClassnames(slots ? slots[0].date < formattedDate ? 202 : colorId : colorId)}
+          >
+            {`${data}:00`}
+            <div className={activeCallerFreeClassnames(slots ? slots[0].date < formattedDate ? 202 : colorId : colorId)}>{colorId}</div>
+          </li>
+        </>
       ) : (
         <li
           onClick={onClickFn}

@@ -40,6 +40,7 @@ import AvaliablePage from "./pages/Confirmator/AvaliablePage";
 import HomePage from "./pages/HomePage/HomePage";
 import Statistics from "./pages/Statistics/Statistics";
 import Footer from "./components/Footer/Footer";
+import TeamCalendar from "./pages/SuperAdmin/TeamCalendar";
 
 const ProtectedRoute = ({ children }) => {
   const { managerId } = useParams();
@@ -66,6 +67,7 @@ const App = () => {
           <>
             {(userRole === 3 || userRole === 4 || userRole === 5) && (
               <>
+                <Route path={path.teamCalendar} element={<TeamCalendar />} />
                 <Route path={path.modals} element={<ModalsPage />} />
                 <Route path={path.history} element={<History />}>
                   <Route path={path.authorization} element={<AuthLogs />} />

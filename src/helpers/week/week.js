@@ -161,6 +161,15 @@ const getWeekIdByTableDate = (tableDate) => {
     });
 };
 
+const getTeamsWorkWeek = (weekId) => {
+  return axios
+    .get(`/get_week_team_calendar/${weekId}`)
+    .then((res) => res.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export {
   getCurrentWeek,
   getCallerCurrentWeek2,
@@ -176,4 +185,5 @@ export {
   getCallerCurrentWeek3,
   updateSlotFollowUp,
   updateSlotOnControl,
+  getTeamsWorkWeek,
 };
