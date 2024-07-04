@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCallerDate,
@@ -25,46 +25,27 @@ export default function TeamCalendar() {
   const [dataLoading, setDataLoading] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState("All");
   const [selectedManager, setSelectedManager] = useState("All");
-  console.log("selected team", selectedTeam);
-  console.log("selected manager", selectedManager);
+  const [teamsAndManagers, setTeamsAndManagers] = useState({}); // State to hold teamsAndManagers
 
   useEffect(() => {
-    if (weekId && selectedTeam === "All" && selectedManager === "All") {
-      dispatch(getTeamCalendarWeek({ weekId }));
-    } else if (weekId && selectedTeam !== "All" && selectedManager === "All") {
-      dispatch(getTeamCalendarWeek({ weekId, team: selectedTeam }));
-    } else if (weekId && selectedTeam !== "All" && selectedManager !== "All") {
-      dispatch(getTeamCalendarWeek({ weekId, team: selectedTeam, manager: selectedManager }));
+    setDataLoading(true);
+    if (weekId) {
+      dispatch(
+        getTeamCalendarWeek({
+          weekId,
+          team: selectedTeam !== "All" ? selectedTeam : null,
+          manager: selectedManager !== "All" ? selectedManager : null,
+        })
+      )
+        .then((response) => {
+          console.log("111",response); // Додайте цей рядок для дебагу
+          if (response.payload.teamsAndManagers) {
+            setTeamsAndManagers(response.payload.teamsAndManagers); // Set teamsAndManagers from response
+          }
+        })
+        .finally(() => setDataLoading(false));
     }
   }, [dispatch, weekId, selectedTeam, selectedManager]);
-
-  const [currentDayIndex, setCurrentDayIndex] = useState(0);
-  function setDayIndex(num) {
-    setCurrentDayIndex(num);
-  }
-
-  const teamsAndManagers = useMemo(() => {
-    if (!table) return {};
-
-    const teams = {};
-    table.forEach(day => {
-      if (!day) return;
-      day.forEach(slot => {
-        if (!slot || !slot.slots) return;
-        slot.slots.forEach(manager => {
-          const team = manager.team;
-          if (!teams[team]) {
-            teams[team] = [];
-          }
-          if (!teams[team].includes(manager.name)) {
-            teams[team].push(manager.name);
-          }
-        });
-      });
-    });
-
-    return teams;
-  }, [table]);
 
   const handleTeamChange = (e) => {
     setSelectedTeam(e.target.value);
@@ -74,13 +55,17 @@ export default function TeamCalendar() {
   const handleManagerChange = (e) => {
     setSelectedManager(e.target.value);
   };
+  const [currentDayIndex, setCurrentDayIndex] = useState(0);
+  function setDayIndex(num) {
+    setCurrentDayIndex(num);
+  }
 
   return (
     <>
       <Header
         endpoints={[
           { text: "Users", path: path.users },
-          { text: "Available Managers", path: path.avaliable },
+          { text: "Available Managers", path: path.available },
           { text: "Groups", path: path.groups },
           { text: "Courses", path: path.courses },
           { text: "Search by CRM", path: path.crm },
@@ -94,20 +79,36 @@ export default function TeamCalendar() {
         <section className={styles.tableSection}>
           {dataLoading ? <div className={styles.loadingBackdrop}></div> : null}
           <div className={styles.selectWrapper}>
-            <select className={styles.teams__select} value={selectedTeam} onChange={handleTeamChange}>
+            <select
+              className={styles.teams__select}
+              value={selectedTeam}
+              onChange={handleTeamChange}
+            >
               <option value="All">All</option>
-              {Object.keys(teamsAndManagers).map(team => (
-                <option value={team} key={team}>{`Team ${team}`}</option>
+              {Object.keys(teamsAndManagers).map((teamId) => (
+                <option value={teamId} key={teamId}>{`Team ${teamId}`}</option>
               ))}
             </select>
-            <select className={styles.managers__select} value={selectedManager} onChange={handleManagerChange}>
+            <select
+              className={styles.managers__select}
+              value={selectedManager}
+              onChange={handleManagerChange}
+            >
               <option value="All">All</option>
-              {selectedTeam !== "All" && teamsAndManagers[selectedTeam] && teamsAndManagers[selectedTeam].map(manager => (
-                <option value={manager} key={manager}>{manager}</option>
-              ))}
+              {selectedTeam !== "All" &&
+                teamsAndManagers[selectedTeam] &&
+                teamsAndManagers[selectedTeam].map((manager) => (
+                  <option value={manager} key={manager}>
+                    {manager}
+                  </option>
+                ))}
             </select>
           </div>
-          <DatePicker changeDateFn={getTeamCalendarWeek} tableDate={tableDate} caller />
+          <DatePicker
+            changeDateFn={getTeamCalendarWeek}
+            tableDate={tableDate}
+            caller
+          />
           {window.innerWidth > 1100 ? (
             <Days caller />
           ) : (
@@ -116,7 +117,12 @@ export default function TeamCalendar() {
           {window.innerWidth > 1100 ? (
             <Table table={table} weekId={weekId} teamCalendar />
           ) : (
-            <DayTable weekId={weekId} table={table[currentDayIndex]} dayIndex={currentDayIndex} teamCalendar />
+            <DayTable
+              weekId={weekId}
+              table={table[currentDayIndex]}
+              dayIndex={currentDayIndex}
+              teamCalendar
+            />
           )}
         </section>
       </div>
