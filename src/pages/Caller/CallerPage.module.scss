@@ -207,3 +207,26 @@ z-index: 11000;
   background-size: 20px 20px; /* Розмір стрілки */
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23000"><path d="M7 10l5 5 5-5z"/></svg>');
 }
+//////////////////////////////////
+.manager__select{
+  margin: 10px auto;
+  display: block;
+  max-width: 408px;
+  background-color: $grey;
+  border-radius: 10px;
+  border: 0;
+  height: 45px;
+  padding-left: 15px;
+  font-size: 20px;
+  font-family: $poppins;
+  padding: 10px;
+  -moz-appearance: none;
+  text-align: center;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("../../img/down-arrow.png");
+  background-repeat: no-repeat, repeat;
+  background-position: right 0.7em top 55%, 0 0;
+  align-items: center;
+  transition: all 0.5s;
+}

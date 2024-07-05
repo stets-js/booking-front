@@ -48,9 +48,14 @@ const getCallerWorkWeek = (weekId) => {
 };
 
 ///////////////////////
-const getCallerWorkWeekByCourse = (weekId, courseId) => {
+const getCallerWorkWeekByCourse = (weekId, courseId, manager = null) => {
+  let url = `/get_caller_week/${weekId}/${courseId}`;
+  if (manager !== null) {
+    url += `?manager=${manager}`;
+  }
+
   return axios
-    .get(`/get_caller_week/${weekId}/${courseId}`)
+    .get(url)
     .then((res) => res.data)
     .catch((error) => {
       throw error;
