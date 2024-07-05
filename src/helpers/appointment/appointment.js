@@ -79,16 +79,13 @@ const createAppointment = (
   appointmentType
 ) => {
   const authToken = localStorage.getItem("booking");
-
+  const encodedMessage = encodeURIComponent(encodeURIComponent(message));  // Подвійне кодування
 
   return axios
     .post(
-      `/create_appointment/${weekId}/${dayIndex}/${time}/${courseId}/${phone ? phone : "0"}/${age}/${managerId}/${
-        message ? message : "0"
-      }/${callerName}/${appointmentType}`,
+      `/create_appointment/${weekId}/${dayIndex}/${time}/${courseId}/${phone ? phone : "0"}/${age}/${managerId}/${encodedMessage ? encodedMessage : "0"}/${callerName}/${appointmentType}`,
       link, 
       {
-        // Set the Authorization header with the retrieved token
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -103,7 +100,7 @@ const createAppointment = (
       };
 
       info("Data sending to ZOHO...");
-      
+
       axios.post(
         "https://zohointegration.goit.global/GoITeens/booking/index.php",
         JSON.stringify(responseData),
@@ -115,7 +112,6 @@ const createAppointment = (
         error("Data not sended to ZOHO!")
       });
 
-      
     })
     .catch((error) => {
       throw error;
