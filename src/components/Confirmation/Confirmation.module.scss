@@ -4,13 +4,13 @@
   display: flex;
   justify-content: center;
   border-bottom: 2px solid $font-black;
-  width: 250px;
+  width: 350px;
   align-items: center;
   margin-right: 36px;
   height: 57px;
   @media screen and (max-width: $desktop) {
     margin-right: 0px;
-    width: 160px;
+    width: 260px;
   }
 }
 
@@ -18,13 +18,13 @@
   border-right: 2px solid black;
   height: auto;
   align-items: center;
-  min-width: 288px;
+  min-width: 388px;
   height: fit-content;
   &:nth-last-child(1) {
     border-right: none;
   }
   @media screen and (max-width: $desktop) {
-    min-width: 170px;
+    min-width: 270px;
     margin-left: 10px;
   }
 }

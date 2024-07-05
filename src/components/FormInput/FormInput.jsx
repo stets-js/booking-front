@@ -17,6 +17,14 @@ const FormInput = ({
   width,
   max,
 }) => {
+  const handleBlur = (e) => {
+    let inputValue = e.currentTarget.value;
+    if (inputValue.endsWith("/")) {
+      inputValue = inputValue.slice(0, -1);
+      handler(inputValue);
+    }
+  };
+
   return (
     <label className={styles.input__label} style={{ width: width }}>
       <p className={classnames(styles.input__title, styles[`${classname}`])}>
@@ -34,6 +42,7 @@ const FormInput = ({
         maxLength={max}
         placeholder={placeholder}
         onChange={(e) => handler(e.currentTarget.value)}
+        onBlur={handleBlur}
       />
     </label>
   );
