@@ -39,7 +39,7 @@ export default function CallerPage() {
 
   useEffect(() => {
     dispatch(getCallerCurrentWeekByCourse(courseId));
-  }, [courseId, dispatch]);
+  }, []);
 
   useEffect(() => {
     if (weekId) {
