@@ -83,51 +83,6 @@ const ConfirmatorComments = ({ value }) => {
           )}
           {value[item.appointment_id] === "canceled" && (
             <div className={styles.comment__reject_btn}>
-              {/* {confirmationTable.map((i) => {
-                return (
-                  <button
-                    key={i.text}
-                    onClick={() => {
-                      setReject({
-                        ...reject,
-                        [item.appointment_id]: {
-                          slot_id: item.slot_id,
-                          text: i.text,
-                        },
-                      });
-                    }}
-                    className={`${styles.btn} ${
-                      reject[item.appointment_id]?.text === i.text &&
-                      styles.btn_active
-                    }`}
-                  >
-                    {i.text}
-                  </button>
-                );
-              })}
-              <input
-                type="text"
-                className={styles.comment__input}
-                placeholder="Write a comment here..."
-                value={reject[item.appointment_id]?.text}
-                onChange={({ target }) =>
-                  setReject({
-                    ...reject,
-                    [item.appointment_id]: {
-                      slot_id: item.slot_id,
-                      text: target.value,
-                    },
-                  })
-                }
-                onBlur={() =>
-                  reject[item.appointment_id] &&
-                  setCancelConfirmation(
-                    item.slot_id,
-                    1,
-                    reject[item.appointment_id]
-                  )
-                }
-              /> */}
               <select
                 className={styles.reason__select}
                 value={selectedReason[item.appointment_id]}

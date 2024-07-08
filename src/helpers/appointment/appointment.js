@@ -23,6 +23,15 @@ const getAppointment = ({ id }) => {
       throw error;
     });
 };
+const getOverbookedAppointments = ( slotId) => {
+  console.log("slotId in fn", slotId)
+  return axios
+    .get(`overbooked_consultations/${slotId}`)
+    .then((res) => res.data)
+    .catch((error) => {
+      throw error;
+    });
+};
 
 const getAppointmentByCrm = (credentials) => {
   return axios
@@ -157,4 +166,5 @@ export {
   putAppointment,
   getAppointmentByCrm,
   swapAppointmentManagers,
+  getOverbookedAppointments,
 };

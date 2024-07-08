@@ -21,7 +21,7 @@ const ConfirmatorPage = () => {
   const [value, setValue] = useState("");
   const { confirmatorId } = useParams();
   const [confirmatorName, setConfirmatorName] = useState("");
-  
+  console.log("value", value)
 
   const loading = useSelector(getConfirmatorLoadings);
 
@@ -55,7 +55,7 @@ const ConfirmatorPage = () => {
       {loading && <div className={styles.spinnerWrapper}><div className={styles.spinner}><TailSpin height="130px" width="130px" color="#999DFF" /></div></div>}
       <ConfirmatorDatePicker />
       
-        <h2 className={styles.title}>Confirmation</h2>
+        <h2 className={styles.title}>Confirmation+</h2>
         {window.innerWidth > 700 ? (
           <div className={styles.table__wrapper}>
             <Confirmator />
