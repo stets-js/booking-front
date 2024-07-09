@@ -1,0 +1,62 @@
+@import "/src/styles/variables.scss";
+
+.modal{
+  margin: 100px auto 100px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.modal label{
+width: 100%;
+}
+.modal input{
+ width: 100%;
+display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.radio__wrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.radio__wrapper label{
+    display: flex;
+    flex-direction: row;
+}
+.survey__comment{
+    width: 100%;
+    border: 2px solid #9c9c9c;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    font-family: $poppins;
+}
+.survey__header{
+    font-size: 24px;
+    font-family: $poppins;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.survey__text{
+    font-size: 18px;
+    font-family: $poppins;
+    text-align: center;
+}
+.question__wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    gap: 5px;
+}
+.survey__btn{
+    color: #fff;
+    background-color: #657fff;
+    font-size: 18px;
+    font-family: $poppins;
+    width: 150px;
+    height: 40px;
+    border-radius: 8px;
+    margin: 0px auto 25px;
+}

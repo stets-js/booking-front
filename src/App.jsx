@@ -41,6 +41,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import Statistics from "./pages/Statistics/Statistics";
 import Footer from "./components/Footer/Footer";
 import TeamCalendar from "./pages/SuperAdmin/TeamCalendar";
+import SurveyModal from "./components/modals/SurveyModal/SurveyModal";
 
 const ProtectedRoute = ({ children }) => {
   const { managerId } = useParams();
@@ -59,12 +60,14 @@ const App = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userRole = useSelector((state) => state.auth.user.role);
   const userId = useSelector((state) => state.auth.user.id);
+  const surveyCompleted = useSelector((state) => state.auth.user.surveyCompleted);
 
   return (
     <>
       <Routes>
         {isAuthenticated ? (
           <>
+            {!surveyCompleted && <Route path="*" element={<SurveyModal />} />}
             {(userRole === 3 || userRole === 4 || userRole === 5) && (
               <>
                 <Route path={path.teamCalendar} element={<TeamCalendar />} />

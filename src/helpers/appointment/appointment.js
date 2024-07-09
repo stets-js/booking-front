@@ -6,6 +6,14 @@ axios.create({
   withCredentials: true,
 });
 
+const completeSurvey = (credentials) => {
+  return axios
+    .post("/complete_survey", credentials)
+    .then((res) => res.data)
+    .catch((error) => {
+      throw error;
+    });
+};
 const postAppointment = (credentials) => {
   return axios
     .post("/register_appointment", credentials)
@@ -167,4 +175,5 @@ export {
   getAppointmentByCrm,
   swapAppointmentManagers,
   getOverbookedAppointments,
+  completeSurvey,
 };
