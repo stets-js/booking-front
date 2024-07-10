@@ -32,7 +32,8 @@ const MeetingsTable = ({
   selectedManagerIds,
   setSelectedManagerIds,
   date,
-  getNewTableData
+  getNewTableData,
+  hideFreeSlots
 }) => {
   const indefyTimedSlotText = (timeid) => {
     switch (timeid) {
@@ -75,7 +76,6 @@ const MeetingsTable = ({
   }
   if (currentSelectedStars) {
     table = table.filter((item) => {
-      console.log("iteeeem", item)
       return (
         item.manager_appointments[tableTime - 8]?.follow_up === true
       );
@@ -83,9 +83,14 @@ const MeetingsTable = ({
   }
   if (currentSelectedStarsTable) {
     table = table.filter((item) => {
-        console.log("iteeeem", item);
+      console.log("item: ", item)
         // Перевіряємо, чи є хоча б один об'єкт у manager_appointments з follow_up === true
         return item.manager_appointments.some(appointment => appointment.follow_up === true);
+    });
+}
+  if (hideFreeSlots) {
+    table = table.filter((item) => {
+        return item.manager_appointments.some(appointment => appointment.status > 0);
     });
 }
   if (table.length === 0) {

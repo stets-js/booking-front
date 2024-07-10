@@ -11,10 +11,13 @@ export default function SortByBox({
   sortMangFunc,
   sortStars,
   sortStarsFunc,
+  sortFree,
+  sortFreeFunc,
 }) {
   const [sortStatus, setSortStatus] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(false);
   const [selectedStars, setSelectedStars] = useState(false);
+  const [hideFree, setHideFree] = useState(false);
 
   const changeSortStatus = () => {
     const curSortStatus = sortStatus;
@@ -46,6 +49,16 @@ export default function SortByBox({
       sortStarsFunc(selectedStars);
     }
   };
+  const changeHideFree = () => {
+    const curSelectStatus = hideFree;
+    if (curSelectStatus) {
+      setHideFree(false);
+      sortFreeFunc(hideFree);
+    } else {
+      setHideFree(true);
+      sortFreeFunc(hideFree);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -71,6 +84,17 @@ export default function SortByBox({
           <div className={selectedStatus ? styles.sortBox_on : styles.sortBox}>
             <div className={styles.sortBoxText} onClick={changeSelectedStars}>
               {sortStars}
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+      {sortFree ? (
+        <>
+          <div className={selectedStatus ? styles.sortBox_on : styles.sortBox}>
+            <div className={styles.sortBoxText} onClick={changeHideFree}>
+              {sortFree}
             </div>
           </div>
         </>

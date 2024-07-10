@@ -30,6 +30,7 @@ import { TailSpin } from "react-loader-spinner";
 function CurrentMeetingsPageTable() {
   const [currentSelectedSortStatus, setcurrentSelectedSortStatus] = useState(false);
   const [currentSelectedStars, setCurrentSelectedStars] = useState(false);
+  const [hideFreeSlots, setHideFreeSlots] = useState(false);
   const [selectedManagerIds, setSelectedManagerIds] = useState([]);
   const isThatPhone = {
     isPhone: window.innerWidth <= 700,
@@ -129,6 +130,8 @@ function CurrentMeetingsPageTable() {
         sortTextFunc={setcurrentSelectedSortStatus}
         sortStars={"Stars"}
         sortStarsFunc={setCurrentSelectedStars}
+        sortFree={"Hide Free slots"}
+        sortFreeFunc={setHideFreeSlots}
       />
   
       {!isThatPhone.isPhone ? (
@@ -164,6 +167,7 @@ function CurrentMeetingsPageTable() {
               setSelectedManagerIds={setSelectedManagerIds}
               currentSelectedSortStatus={currentSelectedSortStatus}
               currentSelectedStarsTable={currentSelectedStars}
+              hideFreeSlots={hideFreeSlots}
               date={date}
               getNewTableData={getNewTableData}
             />
