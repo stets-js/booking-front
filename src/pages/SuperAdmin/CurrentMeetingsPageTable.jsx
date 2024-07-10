@@ -127,8 +127,8 @@ function CurrentMeetingsPageTable() {
       <SortByBox
         sortText={"Selected"}
         sortTextFunc={setcurrentSelectedSortStatus}
-        // sortStars={"Stars"}
-        // sortStarsFunc={setCurrentSelectedStars}
+        sortStars={"Stars"}
+        sortStarsFunc={setCurrentSelectedStars}
       />
   
       {!isThatPhone.isPhone ? (
@@ -163,7 +163,7 @@ function CurrentMeetingsPageTable() {
               selectedManagerIds={selectedManagerIds}
               setSelectedManagerIds={setSelectedManagerIds}
               currentSelectedSortStatus={currentSelectedSortStatus}
-              currentSelectedStars={currentSelectedStars}
+              currentSelectedStarsTable={currentSelectedStars}
               date={date}
               getNewTableData={getNewTableData}
             />
