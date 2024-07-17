@@ -124,9 +124,8 @@
   height: 57px;
   width: 467px;
   display: flex;
-  // justify-content: space-between;
+  gap: 50px;
   align-items: center;
-  // background-color: #000;
   @media screen and (max-width: $desktop) {
     width: 100%;
   }
@@ -237,6 +236,7 @@ z-index: 11000;
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 15px;
+  cursor: pointer;
 }
 .commentsWindow{
   position: absolute;

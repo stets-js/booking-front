@@ -10,8 +10,11 @@ import {
 } from "../../redux/confirmator/confirmator-selectors";
 import { TailSpin } from "react-loader-spinner";
 import { success, error, defaults } from "@pnotify/core";
+import PhoneSVG from "./PhoneSVG";
+import { getCurrentConfirmator } from "../../redux/confirmator/confirmator-operations";
+import {addCallToAppointment} from "../../helpers/appointment/appointment";
 
-const ConfirmatorComments = ({ value }) => {
+const ConfirmatorComments = ({ value, dispatch }) => {
   const appointments = useSelector(getConfirmatorAppointments);
   const [reject, setReject] = useState({});
   const [confirm, setConfirm] = useState("");
@@ -56,7 +59,7 @@ const ConfirmatorComments = ({ value }) => {
       {appointments.map((item) => (
         <div key={item.appointment_id} className={styles.comment__wrapper}>
           {value[item.appointment_id] !== "confirmed" && value[item.appointment_id] !== "canceled" && (
-          <div className={styles.commentsWrapper}><svg
+          <><div className={styles.commentsWrapper}><svg
           onMouseEnter={() => handleMouseEnter(item.appointment_id)}
           onMouseLeave={handleMouseLeave} 
           xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 30 30">
@@ -68,7 +71,18 @@ const ConfirmatorComments = ({ value }) => {
               )} <p>{item.comments?.length > 10 
                 ? `${item.comments.slice(0, 10)}...` 
                 : item.comments
-              }</p></div>)}
+              }</p></div>
+              <div className={styles.commentsWrapper}
+              onClick={async()=> {console.log("call made", item)
+                await addCallToAppointment(item.appointment_id)
+                dispatch(getCurrentConfirmator())
+              }
+              }
+              >
+                <PhoneSVG />
+                <p>{item.how_many_calls}</p>
+              </div></>
+              )}
               
           {value[item.appointment_id] === "confirmed" && (
             <input

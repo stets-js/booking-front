@@ -14,6 +14,14 @@ const completeSurvey = (credentials) => {
       throw error;
     });
 };
+const addCallToAppointment = (appointment_id) => {
+  return axios
+    .patch(`/add_call_to_appointment/${appointment_id}`)
+    .then((res) => res.data)
+    .catch((error) => {
+      throw error;
+    });
+};
 const postAppointment = (credentials) => {
   return axios
     .post("/register_appointment", credentials)
@@ -176,4 +184,5 @@ export {
   swapAppointmentManagers,
   getOverbookedAppointments,
   completeSurvey,
+  addCallToAppointment,
 };

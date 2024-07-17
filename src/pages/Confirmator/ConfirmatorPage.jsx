@@ -64,7 +64,7 @@ const ConfirmatorPage = () => {
               <ConfirmationButtons value={value} setValue={setValue} />
             </div>
             <div className={styles.btn_input_wrapper}>
-              <ConfirmatorComments value={value} />
+              <ConfirmatorComments value={value} dispatch={dispatch}/>
             </div>
           </div>
           ):(
