@@ -336,6 +336,7 @@ const Form = ({
                     messageInit={item.comments}
                     age={item.age}
                     isFollowUp={item.follow_up}
+                    isOnControl={item.on_control}
                   />
                   <div
                     className={styles.appointment}
