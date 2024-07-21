@@ -340,7 +340,7 @@
   border-radius: 8px;
   padding: 10px;
   justify-content: space-between;
-  @media screen and (max-width:$mobile) {
+  @media screen and (max-width:$desktop) {
     flex-direction: column;
   }
 }
@@ -350,10 +350,8 @@
   font-weight: 400;
   color: $font-black;
   font-size: 18px;
-  // @media screen and (min-width: $mobile) and (max-width: $desktop) {
-  //   font-size: 12px;
-  //   width: 30%;
-  // }
+
+  word-break: break-all;
 }
 .slot__cell{
   text-align: left;
@@ -672,11 +670,21 @@ text-align: end;
     display: flex;
     margin-top: 50px;
     justify-content: space-around;
+
+    @media screen and (max-width: $desktop) {
+       flex-direction: column;
+       align-items: center;
+    }
   }
   .actions__container{
     display: flex;
     flex-direction: row;
     gap: 20px;
+    @media screen and (max-width: $desktop) {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 25px;
+   }
   }
   .actions__container button{
     width: 140px;
@@ -686,6 +694,10 @@ text-align: end;
     font-family: $poppins;
     border-radius: 25px;
     padding: 10px;
+
+    @media screen and (max-width: $mobile) {
+      width: 240px;
+   }
   }
   .activeSelectedAction{
     border: 3px solid #ffc919;
