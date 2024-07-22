@@ -61,7 +61,7 @@ const MeetingsTable = ({
   const managerLoading = useSelector(isManagerLoading);
   const callerLoading = useSelector(getCallerLoading);
   
-  table = table.sort((a, b) => a.manager_name.localeCompare(b.manager_name));
+  // table = table.sort((a, b) => a.manager_name.localeCompare(b.manager_name));
   
   const dispatch = useDispatch();
   const typeSelection = useSelector(getTypeSelection);
@@ -83,7 +83,6 @@ const MeetingsTable = ({
   }
   if (currentSelectedStarsTable) {
     table = table.filter((item) => {
-      console.log("item: ", item)
         // Перевіряємо, чи є хоча б один об'єкт у manager_appointments з follow_up === true
         return item.manager_appointments.some(appointment => appointment.follow_up === true);
     });

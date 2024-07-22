@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../SuperAdmin/SuperAdminPage.module.scss";
 import path from "../../helpers/routerPath";
@@ -45,34 +44,55 @@ function CurrentMeetingsPageTable() {
   const [selectedTeam, setSelectedTeam] = useState("All");
   const [isLoading, setIsLoading] = useState(false);
 
-  async function getTableData(day, month, year) {
-    const resManagers = await getCurrentAppointments(
-      `${day}.${month}.${year}`
-    ).then((res) => res.data);
-    const filteredManagers =
-      selectedTeam === "All"
-        ? resManagers
-        : resManagers.filter(
-            (item) => item.team === parseInt(selectedTeam, 10)
-          );
+  const sortManagers = (managers) => {
+    // Сортування по пріоритету
+    return managers.sort((a, b) => {
+      const aName = a.manager_name.toLowerCase();
+      const bName = b.manager_name.toLowerCase();
+  
+      // Перевірка на наявність "overbooking"
+      const aHasOverbooking = aName.includes("overbooking");
+      const bHasOverbooking = bName.includes("overbooking");
+  
+      // Якщо a має "overbooking", а b не має - a має бути перед b
+      if (aHasOverbooking && !bHasOverbooking) {
+        return -1;
+      }
+      // Якщо b має "overbooking", а a не має - b має бути перед a
+      if (!aHasOverbooking && bHasOverbooking) {
+        return 1;
+      }
+  
+      // Якщо обидва мають або не мають "overbooking", сортуємо по алфавіту
+      return aName.localeCompare(bName);
+    });
+  };
 
+  async function getTableData(day, month, year) {
+    const resManagers = await getCurrentAppointments(`${day}.${month}.${year}`).then(res => res.data);
+  
+    // Фільтрація по команді
+    const filteredManagers = selectedTeam === "All"
+      ? sortManagers(resManagers)
+      : sortManagers(resManagers.filter(item => item.team === parseInt(selectedTeam, 10)));
+  
+        
     setDate(`${day}.${month}.${year}`);
-    const resWeekId = await getWeekId2(day, month, year).then((res) => res);
+    const resWeekId = await getWeekId2(day, month, year).then(res => res);
     setCurrentTableData(filteredManagers);
     setCureentTableDataWeekId(resWeekId);
     setIsRenderTableAvailable(true);
   }
-
+  
   async function getNewTableData(day, month, year) {
-    const resManagers = await getCurrentAppointments(
-      `${day}.${month}.${year}`
-    ).then((res) => res.data);
-    const filteredManagers =
-      selectedTeam === "All"
-        ? resManagers
-        : resManagers.filter(
-            (item) => item.team === parseInt(selectedTeam, 10)
-          );
+    const resManagers = await getCurrentAppointments(`${day}.${month}.${year}`).then(res => res.data);
+  
+    // Фільтрація по команді
+    const filteredManagers = selectedTeam === "All"
+      ? sortManagers(resManagers)
+      : sortManagers(resManagers.filter(item => item.team === parseInt(selectedTeam, 10)));
+  
+      
     setCurrentTableData(filteredManagers);
     setIsRenderTableAvailable(true);
   }
