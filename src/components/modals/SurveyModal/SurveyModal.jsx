@@ -11,6 +11,13 @@ const SurveyModal = () => {
   const userName = useSelector((state) => state.auth.user.name);
 
   const questions = {
+    2: [
+      { question: "Наскільки легко вам виставляти графік у додатку?", scale: true },
+      { question: "Наскільки зручно вам відслідковувати записи клієнтів?", scale: true },
+      { question: "Наскільки зручно вам вести звіти після консультацій?", scale: true },
+      { question: "Що б ви хотіли змінити у функціоналі ведення звітів?", scale: false },
+      { question: "Які ще функції або зміни зробили б вашу роботу зручнішою та ефективнішою?", scale: false }
+    ],
     3: [
       { question: "Як ви оцінюєте ефективність додатку у вашій роботі?", scale: true },
       { question: "Чи є у вас пропозиції щодо оптимізації процесів у додатку?", scale: false },
@@ -87,12 +94,16 @@ const SurveyModal = () => {
     });
   };
 
+  const handleSkip = () => {
+    dispatch(setSurveyCompleted(true));
+  };
+
   return (
     <div className="modal">
       <h1 className='survey__header'>Привіт, {userName}!</h1>
       <p className='survey__text'>Для продовження роботи з Booking, просимо відповісти на наступні питання: </p>
       <form onSubmit={handleSubmit}>
-        {questions[userRole].map((question, index) => (
+        {questions[userRole] && questions[userRole].map((question, index) => (
           <div className='question__wrapper' key={index}>
             <label>{question.question}</label>
             {question.scale ? (
@@ -129,6 +140,9 @@ const SurveyModal = () => {
           </div>
         ))}
         <button className='survey__btn' type="submit">Submit</button>
+        {userRole === 2 && (
+          <button className='survey__btn' type="button" onClick={handleSkip}>Skip</button>
+        )}
         <p className='survey__text'>Дякуємо за Вашу роботу і те що робите Booking краще!</p>
       </form>
     </div>

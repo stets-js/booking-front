@@ -28,7 +28,7 @@ const authReducer = (state = initialState, action) => {
           name: decodedToken.user_name,
           role: decodedToken.role,
           id: decodedToken.id,
-          surveyCompleted: decodedToken.survey_completed,
+          surveyCompleted: decodedToken.role === 2 ? false : decodedToken.survey_completed,
         },
         token: action.payload.token,
       };
