@@ -21,8 +21,7 @@ const ConfirmatorPage = () => {
   const [value, setValue] = useState("");
   const { confirmatorId } = useParams();
   const [confirmatorName, setConfirmatorName] = useState("");
-  console.log("value", value)
-
+  
   const loading = useSelector(getConfirmatorLoadings);
 
   const dispatch = useDispatch();
