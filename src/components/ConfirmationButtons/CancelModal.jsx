@@ -9,17 +9,25 @@ const CancelModal = ({ slotId, isOpen, onClose }) => {
     if (isOpen && slotId) {
       getOverbookedAppointments(slotId)
         .then(response => {
-          const formattedConsultations = response.data.map(consultation => ({
-            ...consultation,
-            date: formatDate(consultation.date) // Форматуємо дату
-          }));
-          setConsultations(formattedConsultations);
+          const { data } = response;
+          if (data.length === 0) {
+            // Закрити модалку, якщо даних немає
+            onClose();
+          } else {
+            const formattedConsultations = data.map(consultation => ({
+              ...consultation,
+              date: formatDate(consultation.date) // Форматуємо дату
+            }));
+            setConsultations(formattedConsultations);
+          }
         })
         .catch(error => {
           console.error('Error fetching consultations:', error);
+          // Закрити модалку при помилці запиту
+          onClose();
         });
     }
-  }, [isOpen, slotId]);
+  }, [isOpen, slotId, onClose]);
 
   // Функція для форматування дати в "dd-mm-yyyy"
   const formatDate = (dateString) => {
@@ -44,6 +52,7 @@ const CancelModal = ({ slotId, isOpen, onClose }) => {
               <p>{consultation.manager_name}</p>
               <a
                 target="_blank"
+                rel="noopener noreferrer"
                 href={consultation.zoho_link}
               >Link</a>
               <p>Date: {consultation.date}</p>

@@ -7,18 +7,34 @@ import { Fade } from "react-awesome-reveal";
 const Confirmator = () => {
   const appointments = useSelector(getConfirmatorAppointments);
 
-  const transformAppointmentData = (i) => {
-    const priorityManagers = [
-      "MIC Overbooking Team 1", "MIC Overbooking Team 2", "MIC Overbooking Team 3",
-      "MIC Overbooking Team 4", "MIC Overbooking Team 5", "MIC Overbooking Team 6", 
-      "MIC Overbooking Team 7"
-    ];
+  // Функція для перевірки наявності "overbooking" у тексті
+  const hasOverbooking = (text) => {
+    if (text && typeof text === 'object') {
+      // Припускаємо, що текст може бути властивістю об'єкта
+      text = text.toString();
+    }
+    if (typeof text === 'string') {
+      return text.toLowerCase().includes("overbooking");
+    }
+    return false;
+  };
 
-    const managerName = priorityManagers.includes(i.manager_name) 
-      ? `<span class="${styles.highlight}">${i.manager_name}</span>`
-      : i.manager_name;
-
-    return `${i.hour}:00, ${i.course}, ${managerName}, ${i.phone},`;
+  // Функція для форматування даних про запис
+  const transformAppointmentData = (appointment) => {
+    const isHighlighted = hasOverbooking(appointment.manager_name);
+    return (
+      <li
+        key={appointment.appointment_id}
+        className={`${styles.ul_items} ${isHighlighted ? styles.highlight : ''}`}
+      >
+        <p className={styles.ul_items_text}>
+          {appointment.hour}:00, {appointment.course}, {appointment.manager_name}, {appointment.phone}
+        </p>
+        <a className={styles.link} target="_blank" href={appointment.crm_link} rel="noreferrer">
+          Link
+        </a>
+      </li>
+    );
   };
 
   return (
@@ -28,19 +44,7 @@ const Confirmator = () => {
       ) : (
         <ul className={styles.wrapper}>
           <Fade cascade duration={200}>
-            {appointments.map((i) => {
-              return (
-                <li key={i.appointment_id} className={styles.ul_items}>
-                  <p 
-                    className={styles.ul_items_text} 
-                    dangerouslySetInnerHTML={{ __html: transformAppointmentData(i) }}
-                  />
-                  <a className={styles.link} target="_blank" href={i.crm_link} rel="noreferrer">
-                    Link
-                  </a>
-                </li>
-              );
-            })}
+            {appointments.map((appointment) => transformAppointmentData(appointment))}
           </Fade>
         </ul>
       )}
