@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSurveyCompleted } from '../../../redux/auth-reducers';
 import { completeSurvey } from "../../../helpers/appointment/appointment";
 import "./SurveyModal.scss";
+import { TailSpin } from "react-loader-spinner";
 
 const SurveyModal = () => {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ const SurveyModal = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,6 +69,8 @@ const SurveyModal = () => {
       return;
     }
 
+    setIsSubmitting(true);
+
     const response = {
       respondent_role: userRole,
       respondent_id: userId,
@@ -79,6 +83,8 @@ const SurveyModal = () => {
       dispatch(setSurveyCompleted(true));
     } catch (error) {
       console.error('Error submitting survey:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -139,8 +145,14 @@ const SurveyModal = () => {
             )}
           </div>
         ))}
-        <button className='survey__btn' type="submit">Submit</button>
-        {userRole === 2 && (
+        {isSubmitting ? (
+          <div className='loader__wrapper'>
+            <TailSpin height={40} width={40} color="#00BFFF" />
+          </div>
+        ) : (
+          <button className='survey__btn' type="submit">Submit</button>
+        )}
+        {userRole === 2 && !isSubmitting && (
           <button className='survey__btn' type="button" onClick={handleSkip}>Skip</button>
         )}
         <p className='survey__text'>Дякуємо за Вашу роботу і те що робите Booking краще!</p>
