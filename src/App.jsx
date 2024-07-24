@@ -67,7 +67,7 @@ const App = () => {
       <Routes>
         {isAuthenticated ? (
           <>
-            {!surveyCompleted && <Route path="*" element={<SurveyModal />} />}
+            {!surveyCompleted && !userRole === 2 && <Route path="*" element={<SurveyModal />} />}
             {(userRole === 3 || userRole === 4 || userRole === 5) && (
               <>
                 <Route path={path.teamCalendar} element={<TeamCalendar />} />
