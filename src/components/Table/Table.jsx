@@ -24,7 +24,6 @@ const Table = ({
   teamCalendar,
 }) => {
   
-console.log("table", table)
   useEffect(() => {}, [table]);
   const managerLoading = useSelector(isManagerLoading);
   const callerLoading = useSelector(getCallerLoading);

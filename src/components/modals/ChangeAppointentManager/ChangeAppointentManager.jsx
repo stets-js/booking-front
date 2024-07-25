@@ -121,7 +121,6 @@ const ChangeAppointentManager = ({
     data.append("reason_postpone", selectedReason);
 
     putAppointment(data).then(() => {
-      document.body.classList.remove('no-scroll');
       closePostpone();
       handleClose(!isOpen);
       success("Manager changed successfully");

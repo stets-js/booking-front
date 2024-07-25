@@ -54,7 +54,7 @@ const Form = ({
   const [errorsuccessMessage, setError] = useState(false);
   const [inputCancelClicked, setInputCancelClicked] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  console.log("formData", formData);
+  
   const [course, setCourse] = useState("");
 
   const handleConfirm = async () => {
