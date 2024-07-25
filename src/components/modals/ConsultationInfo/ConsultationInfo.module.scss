@@ -33,12 +33,11 @@
 }
 
 .input__link {
-  margin-top: 20px;
   font-family: $poppins;
   font-size: 20px;
-  width: 45%;
+  // width: 45%;
   color: $font-black;
-  margin: 26px 0 10px;
+  // margin: 26px 0 10px;
   text-align-last: left;
   cursor: pointer;
   border: 0;
@@ -110,4 +109,13 @@
   flex-wrap: nowrap;
   justify-content: space-between;
 
+}
+.crm__wrapper{
+  margin: 20px 0 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
 }

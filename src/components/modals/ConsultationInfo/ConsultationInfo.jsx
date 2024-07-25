@@ -1,6 +1,6 @@
 import styles from "./ConsultationInfo.module.scss";
 import Modal from "../../Modal/Modal";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getGroups } from "../../../helpers/group/group";
@@ -181,6 +181,17 @@ const ConsultationInfo = ({
     setUnsuccessfulMessage(e.target.value);
   };
 
+  const linkRef = useRef(null);
+
+  const handleCopyLink = () => {
+    if (linkRef.current) {
+      const link = linkRef.current.href;
+      navigator.clipboard.writeText(link).then(() => {
+        success("Link copied!")
+      })
+    }
+  };
+
   return (
     <>
       {isOpen && (
@@ -242,13 +253,18 @@ const ConsultationInfo = ({
           >
             <label className={styles.input__label}>
               {appointment && (
+                <div className={styles.crm__wrapper}>
                 <a
+                  ref={linkRef}
                   target="_blank"
                   href={appointment.zoho_link}
                   className={styles.input__link}
                 >
                   CRM Link
                 </a>
+                <div onClick={handleCopyLink}>
+                <svg width="20" height="20" viewBox="0 0 0.6 0.6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M.2.1v.3a.05.05 0 0 0 .05.05h.2A.05.05 0 0 0 .498.4V.181A.05.05 0 0 0 .484.145L.403.064A.05.05 0 0 0 .366.05H.251a.05.05 0 0 0-.05.05" stroke="#000" stroke-width=".05" stroke-linecap="round" stroke-linejoin="round"/><path d="M.4.45V.5a.05.05 0 0 1-.05.05H.149A.05.05 0 0 1 .1.498V.226a.05.05 0 0 1 .049-.05h.05" stroke="#000" stroke-width=".05" stroke-linecap="round" stroke-linejoin="round"/></svg>                </div>
+              </div>
               )}
             </label>
             <Select
@@ -337,7 +353,7 @@ const ConsultationInfo = ({
       )}
       {isOpenPostpone && <PostponeModal
         isOpen={isOpenPostpone}
-        onClose={() => setIsOpen(false)}
+        onClose={() => setIsOpen(!isOpenPostpone)}
         appointmentId={appointment.id}
         link={appointment.zoho_link}
         courseId={appointment.course_id}
