@@ -107,14 +107,19 @@
   width: fit-content;
 }
 .postponedWrapper {
-  padding-top: 100px;
-  padding-bottom: 600px;
-  position: absolute;
-  width: 100%;
+  padding-top: 20px; /* Можна змінити відповідно до потреб */
+  padding-bottom: 20px; /* Можна змінити відповідно до потреб */
+  position: fixed;
+  width: 100%; /* Можна змінити відповідно до потреб */
+  max-height: 100vh; /* Обмеження висоти модального вікна */
   top: 0;
   left: 0;
+  // transform: translateX(-50%);
   z-index: 10001;
   background-color: #fff;
+  overflow-y: auto; /* Додає вертикальне скролювання */
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Додає тінь для кращого вигляду */
+  border-radius: 8px; /* Додає закруглення кутів */
 }
 
 .buttonsWrapper {
