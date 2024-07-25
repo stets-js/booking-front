@@ -240,7 +240,9 @@ const ConsultationInfo = ({
             course={course || appointment.course_id}
             result={result}
             postpone
-            postponeClick={() => setIsOpen(!isOpenPostpone)}
+            postponeClick={() => {setIsOpen(!isOpenPostpone)
+              document.body.classList.add('no-scroll');
+            }}
             handleClose={handleClose}
             successConfirm
             status={{

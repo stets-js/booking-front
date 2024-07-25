@@ -45,6 +45,10 @@ export default function PostponeModal({
   isFollowUp,
   isOnControl,
 }) {
+console.log("Im in postpone modal");
+
+
+
   const [callerId, setCallerId] = useState(null);
   const [error, setError] = useState("");
   const [isChangeManagerOpened, setIsChangeManagerOpened] = useState(false);
@@ -64,7 +68,7 @@ export default function PostponeModal({
   };
 
   useEffect(() => {
-    dispatch(getCallerCurrentWeek(callerId));
+    callerId && dispatch(getCallerCurrentWeek(callerId));
     getUsersByRole("Confirmator")
       .then(({ data }) => {
         setCallerId(data[0].id);
@@ -169,7 +173,9 @@ export default function PostponeModal({
           </section>
           <div className={styles.button}>
             <Button
-              onclick={onClose}
+              onclick={()=>{onClose()
+                document.body.classList.remove('no-scroll');
+              }}
               paddingRight={31}
               paddingLeft={31}
               width={"auto"}
