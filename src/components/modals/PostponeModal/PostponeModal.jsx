@@ -169,7 +169,7 @@ export default function PostponeModal({
           </section>
           <div className={styles.button}>
             <Button
-              onclick={()=>{onClose}}
+              onclick={onClose}
               paddingRight={31}
               paddingLeft={31}
               width={"auto"}
