@@ -271,12 +271,15 @@
   border: 2px solid #000;
 }
 
-
-
-
-
-// @media screen and  (max-width: 1330px) {
-// .hover_buttons button:nth-child(1) {
-//   margin-right: 17px;
-// }
-// }
+.slot__course{
+  position: absolute;
+  bottom: 2px;
+  font-family: $poppins;
+  font-size: 10px;
+  background-color: #fff;
+  padding: 2px;
+  border-radius: 10px;
+}
+.item:hover .slot__course {
+  display: none;
+}

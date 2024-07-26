@@ -23,7 +23,8 @@ const TableItem = ({
   handleReload,
   courseId,
   callerName,
-  teamCalendar
+  teamCalendar,
+  courseName
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState("");
@@ -122,6 +123,7 @@ const TableItem = ({
                   info
                 </button>
               </div>
+              {courseName ? <p className={styles.slot__course}>{courseName}</p> : null }
             </li>
             {modal === "consultation" && (
               <ConsultationInfo
@@ -152,6 +154,7 @@ const TableItem = ({
                   info
                 </button>
               </div>
+              {courseName ? <p className={styles.slot__course}>{courseName}</p> : null }
             </li>
             {modal === "consultation" && (
               <ConsultationInfo

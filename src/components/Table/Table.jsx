@@ -70,6 +70,7 @@ const Table = ({
                     slotId={item.slot_id}
                     onClickBtnStart={() => onClickSlotFn(dayIndex, hourIndex)}
                     handleReload={handleReload}
+                    courseName={item.course_name}
                   />
                 ) : teamCalendar ? (
                   <TableItem
