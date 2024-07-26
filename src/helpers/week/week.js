@@ -166,14 +166,18 @@ const getWeekIdByTableDate = (tableDate) => {
     });
 };
 
-const getTeamsWorkWeek = (weekId, team = null, manager = null) => {
+const getTeamsWorkWeek = (weekId, team = null, manager = null, course = null) => {
   let url = `/get_week_team_calendar/${weekId}`;
-  if (team !== null && manager !== null) {
-    url += `?team=${team}&manager=${manager}`;
-  } else if (team !== null) {
-    url += `?team=${team}`;
-  } else if (manager !== null) {
-    url += `?manager=${manager}`;
+
+  // Створюємо масив параметрів запиту
+  const queryParams = [];
+  if (team !== null) queryParams.push(`team=${team}`);
+  if (manager !== null) queryParams.push(`manager=${manager}`);
+  if (course !== null) queryParams.push(`course=${course}`);
+
+  // Додаємо параметри запиту до URL
+  if (queryParams.length > 0) {
+    url += `?${queryParams.join('&')}`;
   }
 
   return axios

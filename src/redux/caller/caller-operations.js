@@ -84,8 +84,8 @@ const getCallerWeek = createAsyncThunk(
 );
 const getTeamCalendarWeek = createAsyncThunk(
   GET_WEEK,
-  ({ weekId, team, manager }, { rejectWithValue }) => {
-    return getTeamsWorkWeek(weekId, team, manager)
+  ({ weekId, team, manager, course }, { rejectWithValue }) => {
+    return getTeamsWorkWeek(weekId, team, manager, course)
       .then((data) => data)
       .catch((data) => {
         error(

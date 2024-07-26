@@ -25,7 +25,9 @@ export default function TeamCalendar() {
   const [dataLoading, setDataLoading] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState("All");
   const [selectedManager, setSelectedManager] = useState("All");
-  const [teamsAndManagers, setTeamsAndManagers] = useState({}); // State to hold teamsAndManagers
+  const [selectedCourse, setSelectedCourse] = useState("All"); // State to hold selected course
+  const [teamsAndManagers, setTeamsAndManagers] = useState({});
+  const [allCourses, setAllCourses] = useState([]); // State to hold all courses
 
   useEffect(() => {
     setDataLoading(true);
@@ -35,26 +37,36 @@ export default function TeamCalendar() {
           weekId,
           team: selectedTeam !== "All" ? selectedTeam : null,
           manager: selectedManager !== "All" ? selectedManager : null,
+          course: selectedCourse !== "All" ? selectedCourse : null,
         })
       )
         .then((response) => {
-          console.log("111",response); // Додайте цей рядок для дебагу
+          console.log("111", response); // For debugging
           if (response.payload.teamsAndManagers) {
-            setTeamsAndManagers(response.payload.teamsAndManagers); // Set teamsAndManagers from response
+            setTeamsAndManagers(response.payload.teamsAndManagers);
+          }
+          if (response.payload.allCourses) {
+            setAllCourses(response.payload.allCourses); // Set all courses from response
           }
         })
         .finally(() => setDataLoading(false));
     }
-  }, [dispatch, weekId, selectedTeam, selectedManager]);
+  }, [dispatch, weekId, selectedTeam, selectedManager, selectedCourse]);
 
   const handleTeamChange = (e) => {
     setSelectedTeam(e.target.value);
     setSelectedManager("All");
+    setSelectedCourse("All"); // Reset selected course when team changes
   };
 
   const handleManagerChange = (e) => {
     setSelectedManager(e.target.value);
   };
+
+  const handleCourseChange = (e) => {
+    setSelectedCourse(e.target.value);
+  };
+
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
   function setDayIndex(num) {
     setCurrentDayIndex(num);
@@ -79,6 +91,7 @@ export default function TeamCalendar() {
         <section className={styles.tableSection}>
           {dataLoading ? <div className={styles.loadingBackdrop}></div> : null}
           <div className={styles.selectWrapper}>
+            <p className={styles.selectLabel}>Team:</p>
             <select
               className={styles.teams__select}
               value={selectedTeam}
@@ -89,6 +102,7 @@ export default function TeamCalendar() {
                 <option value={teamId} key={teamId}>{`Team ${teamId}`}</option>
               ))}
             </select>
+            <p className={styles.selectLabel}>Manager:</p>
             <select
               className={styles.managers__select}
               value={selectedManager}
@@ -102,6 +116,19 @@ export default function TeamCalendar() {
                     {manager}
                   </option>
                 ))}
+            </select>
+            <p className={styles.selectLabel}>Course:</p>
+            <select
+              className={styles.courses__select}
+              value={selectedCourse}
+              onChange={handleCourseChange}
+            >
+              <option value="All">All</option>
+              {allCourses.map((course) => (
+                <option value={course} key={course}>
+                  {course}
+                </option>
+              ))}
             </select>
           </div>
           <DatePicker
