@@ -8,6 +8,14 @@ const getCourses = () => {
       throw error;
     });
 };
+const getGroups = () => {
+  return axios
+    .get("/unique_group_names")
+    .then((res) => res.data)
+    .catch((error) => {
+      throw error;
+    });
+};
 const getCourseIdByName = (name) => {
   return axios
     .get(`/get_course_id/${name}`)
@@ -71,4 +79,5 @@ export {
   deleteCourse,
   getManagerCourses,
   getCourseIdByName,
+  getGroups,
 };

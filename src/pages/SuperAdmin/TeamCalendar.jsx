@@ -16,6 +16,7 @@ import Days from "../../components/Days/Days";
 import DaysPicker from "../../components/DaysPicker/DaysPicker";
 import "react-calendar/dist/Calendar.css";
 import path from "../../helpers/routerPath";
+import { getGroups } from "../../helpers/course/course";
 
 export default function TeamCalendar() {
   const tableDate = useSelector(getCallerDate);
@@ -25,9 +26,12 @@ export default function TeamCalendar() {
   const [dataLoading, setDataLoading] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState("All");
   const [selectedManager, setSelectedManager] = useState("All");
-  const [selectedCourse, setSelectedCourse] = useState("All"); // State to hold selected course
+  const [selectedCourse, setSelectedCourse] = useState("All");
+  const [selectedGroup, setSelectedGroup] = useState("All");
   const [teamsAndManagers, setTeamsAndManagers] = useState({});
-  const [allCourses, setAllCourses] = useState([]); // State to hold all courses
+  const [allCourses, setAllCourses] = useState([]);
+  const [allGroups, setAllGroups] = useState([]);
+  const [isGroupSelectorDisabled, setIsGroupSelectorDisabled] = useState(false);
 
   useEffect(() => {
     setDataLoading(true);
@@ -38,25 +42,37 @@ export default function TeamCalendar() {
           team: selectedTeam !== "All" ? selectedTeam : null,
           manager: selectedManager !== "All" ? selectedManager : null,
           course: selectedCourse !== "All" ? selectedCourse : null,
+          group: selectedGroup !== "All" ? selectedGroup : null,
         })
       )
         .then((response) => {
-          console.log("111", response); // For debugging
           if (response.payload.teamsAndManagers) {
             setTeamsAndManagers(response.payload.teamsAndManagers);
           }
           if (response.payload.allCourses) {
-            setAllCourses(response.payload.allCourses); // Set all courses from response
+            setAllCourses(response.payload.allCourses);
           }
         })
         .finally(() => setDataLoading(false));
     }
-  }, [dispatch, weekId, selectedTeam, selectedManager, selectedCourse]);
+  }, [dispatch, weekId, selectedTeam, selectedManager, selectedCourse, selectedGroup]);
+
+  useEffect(() => {
+    getGroups()
+      .then((groups) => setAllGroups(groups.data))
+      .catch((error) => console.error("Failed to fetch groups", error));
+  }, []);
+
+  useEffect(() => {
+    // Disable group selector if Team, Manager, or Course is not "All"
+    setIsGroupSelectorDisabled(selectedCourse !== "All");
+  }, [selectedTeam, selectedManager, selectedCourse]);
 
   const handleTeamChange = (e) => {
     setSelectedTeam(e.target.value);
     setSelectedManager("All");
-    setSelectedCourse("All"); // Reset selected course when team changes
+    setSelectedCourse("All");
+    setSelectedGroup("All");
   };
 
   const handleManagerChange = (e) => {
@@ -65,6 +81,10 @@ export default function TeamCalendar() {
 
   const handleCourseChange = (e) => {
     setSelectedCourse(e.target.value);
+  };
+
+  const handleGroupChange = (e) => {
+    setSelectedGroup(e.target.value);
   };
 
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
@@ -127,6 +147,20 @@ export default function TeamCalendar() {
               {allCourses.map((course) => (
                 <option value={course} key={course}>
                   {course}
+                </option>
+              ))}
+            </select>
+            <p className={styles.selectLabel}>Course group:</p>
+            <select
+              className={styles.groups__select}
+              value={selectedGroup}
+              onChange={handleGroupChange}
+              disabled={isGroupSelectorDisabled}
+            >
+              <option value="All">All</option>
+              {allGroups.map((group) => (
+                <option value={group} key={group}>
+                  {group}
                 </option>
               ))}
             </select>
