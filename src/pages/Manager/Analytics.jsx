@@ -8,6 +8,7 @@ import { success, error, defaults } from "@pnotify/core";
 import { TailSpin } from "react-loader-spinner";
 import NoData from "../SuperAdmin/NoData";
 import SortIcon from "./SortIcon";
+import {getCourses} from "../../helpers/course/course";
 
 const Analytics = () => {
   const manager_id = window.location.pathname.split("/")[2];
@@ -20,6 +21,9 @@ const Analytics = () => {
   const [searchDate, setSearchDate] = useState("");
   const [showTooltip, setShowTooltip] = useState(null);
   const [sortDate, setSortDate] = useState(true);
+  const [allCourses, setAllCourses] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState("All");
+
 
   const months = [
     { value: 1, label: "January" },
@@ -41,6 +45,8 @@ const Analytics = () => {
 
     const getData = async (manager_id, date) => {
       try {
+        const courses = await getCourses();
+        setAllCourses(courses.data);
         const res = await getManagerAnalytic(manager_id, date);
         if (sortDate) {
           // Сортування за датою в порядку зростання
@@ -69,11 +75,11 @@ const Analytics = () => {
         setIsLoading(false);
       }
     };
+
     getData(manager_id, date);
-  }, [date, sortDate]);
+  }, [date, sortDate, selectedCourse]);
 
   const handleUpdate = async (itemId) => {
-    // Знаходимо елемент в `analyticData` за його ідентифікатором
     const updatedItemIndex = analyticData.findIndex(
       (item) => item.id === itemId
     );
@@ -85,34 +91,30 @@ const Analytics = () => {
     const updatedItem = analyticData[updatedItemIndex];
 
     try {
-      // Оновлюємо дані на сервері
       await updateManagerAnalytic(updatedItem);
-
-      // Виводимо повідомлення про успішне оновлення
       success("Analytic updated successfully");
-
       console.log("Updated item:", updatedItem);
     } catch (error) {
-      // Обробляємо помилку при оновленні
       console.error("Error updating item:", error);
     }
   };
 
-  // Фільтрація даних за зазначеним терміном пошуку
-  const filteredData = searchTerm
-    ? analyticData.filter((item) => item.zoho_link.includes(searchTerm))
-    : searchDate
-    ? analyticData.filter((item) => item.date.includes(searchDate))
-    : analyticData;
+  // Фільтрація даних за зазначеним терміном пошуку та вибраним курсом
+  const filteredData = analyticData
+    .filter((item) =>
+      selectedCourse === "All" ? true : item.course_name === selectedCourse
+    )
+    .filter((item) =>
+      searchTerm ? item.zoho_link.includes(searchTerm) : true
+    )
+    .filter((item) =>
+      searchDate ? item.date.includes(searchDate) : true
+    );
 
-  // Обрахунок індексів для сторінки
   const startIndex = (page - 1) * perPage;
   const endIndex = startIndex + perPage;
-
-  // Дані, що відображаються на поточній сторінці
   const currentPageData = filteredData.slice(startIndex, endIndex);
 
-  // Функція для зміни сторінки
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
@@ -128,7 +130,6 @@ const Analytics = () => {
   );
   const priceTotal = analyticData.reduce(
     (total, item) => {
-      // Додавання ціни лише для контрактів, які були куплені (item.bought === 1)
       if (item.bought === 1) {
         return total + item.price;
       } else {
@@ -137,6 +138,10 @@ const Analytics = () => {
     },
     0
   );
+
+  const handleCourseChange = (e) => {
+    setSelectedCourse(e.target.value);
+  };
 
   return (
     <>
@@ -171,6 +176,18 @@ const Analytics = () => {
             </option>
           ))}
         </select>
+        <select
+              className={styles.select}
+              value={selectedCourse}
+              onChange={handleCourseChange}
+            >
+              <option value="All">All</option>
+              {allCourses.map((course) => (
+                <option value={course.name} key={course.name}>
+                  {course.name}
+                </option>
+              ))}
+            </select>
       </div>
       <div className={styles.sort__wrapper}>
         <div
