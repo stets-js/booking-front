@@ -81,6 +81,9 @@ export default function TeamCalendar() {
 
   const handleCourseChange = (e) => {
     setSelectedCourse(e.target.value);
+    if (e.target.value !== "All") {
+      setSelectedGroup("All");
+    }
   };
 
   const handleGroupChange = (e) => {
