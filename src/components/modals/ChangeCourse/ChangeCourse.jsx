@@ -4,11 +4,13 @@ import { putCourse, deleteCourse } from "../../../helpers/course/course";
 import Form from "../../Form/Form";
 import FormInput from "../../FormInput/FormInput";
 
-const NewManager = ({ isOpen, handleClose, id, dataName }) => {
+const NewManager = ({ isOpen, handleClose, id, dataName, dataGroup }) => {
   const [name, setName] = useState("");
+  const [group, setGroup] = useState("");
   useEffect(() => {
     setName(dataName);
-  }, [isOpen, dataName]);
+    setGroup(dataGroup);
+  }, [isOpen, dataName, dataGroup]);
   return (
     <>
       {isOpen && (
@@ -23,6 +25,7 @@ const NewManager = ({ isOpen, handleClose, id, dataName }) => {
             onSubmit={() => {
               handleClose();
               setName("");
+              setGroup("");
             }}
             status={{
               successMessage: "Successfully changed course",
@@ -31,6 +34,7 @@ const NewManager = ({ isOpen, handleClose, id, dataName }) => {
               failMessageDelete: "Failed to delete course",
             }}
             name={name}
+            group={group}
             title="Change course's info"
           >
             <FormInput
@@ -41,6 +45,15 @@ const NewManager = ({ isOpen, handleClose, id, dataName }) => {
               placeholder="Name"
               isRequired={true}
               handler={setName}
+            />
+            <FormInput
+              title="Group:"
+              type="text"
+              name="group"
+              value={group}
+              placeholder="Group"
+              isRequired={true}
+              handler={setGroup}
             />
           </Form>
         </Modal>

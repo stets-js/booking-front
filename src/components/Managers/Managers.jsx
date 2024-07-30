@@ -19,6 +19,7 @@ export default function Managers({ isOpenModal, isAdmin, data }) {
   const [newRole, setRole] = useState("");
   const [newLogin, setLogin] = useState("");
   const [zohoId, setZohoId] = useState("");
+  const [slackId, setSlackId] = useState("");
   const [selectedTeam, setSelectedTeam] = useState("All");
   const [password, setPassword] = useState("");
 
@@ -155,6 +156,7 @@ export default function Managers({ isOpenModal, isAdmin, data }) {
                                 setTeam(item.team);
                                 setZohoId(item.zoho_id);
                                 setPassword(item.password);
+                                setSlackId(item.slack_id);
                               }}
                             />
                           </li>
@@ -179,6 +181,7 @@ export default function Managers({ isOpenModal, isAdmin, data }) {
         dataTeam={team}
         dataSlack={slack}
         dataZohoId={zohoId}
+        dataSlackId={slackId}
         dataPassword={password}
       />
     </>

@@ -25,7 +25,8 @@ const ChangeUser = ({
   administrator,
   dataTeam,
   dataSlack,
-  dataZohoId
+  dataZohoId,
+  dataSlackId,
 }) => {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -35,6 +36,7 @@ const ChangeUser = ({
   const [team, setTeam] = useState("");
   const [slack, setSlack] = useState("");
   const [zohoId, setZohoId] = useState("");
+  const [slackId, setSlackId] = useState("");
   
   useEffect(() => {
     setName(dataName);
@@ -45,7 +47,8 @@ const ChangeUser = ({
     setTeam(dataTeam);
     setZohoId(dataZohoId);
     setPassword(dataPassword);
-  }, [isOpen, dataDesc, dataLogin, dataRole, dataName, dataSlack, dataTeam, dataPassword]);
+    setSlackId(dataSlackId)
+  }, [isOpen, dataDesc, dataLogin, dataRole, dataName, dataSlack, dataTeam, dataPassword, dataSlackId, dataZohoId]);
 
   return (
     <>
@@ -77,12 +80,14 @@ const ChangeUser = ({
               setSlack("");
               setTeam("");
               setZohoId("");
+              setSlackId("")
             }}
             rating={desc}
             slack={slack}
             team={team}
             login={login}
             zoho_id={zohoId}
+            slack_id={slackId}
             status={{
               successMessage: "Successfully changed user",
               failMessage: "Failed to change user",
@@ -171,6 +176,16 @@ const ChangeUser = ({
                 handler={setTeam}
               />
             </div>}
+            <FormInput
+                classname="input__bottom"
+                title="Slack id:"
+                type="text"
+                name="slack_id"
+                value={slackId}
+                max={50}
+                placeholder="Slack id"
+                handler={setSlackId}
+              />
             <Select
               title="Role:"
               request={getRoles}

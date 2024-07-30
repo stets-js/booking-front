@@ -11,6 +11,7 @@ export default function Courses({ text, isOpenModal, role }) {
   const [isOpen, setIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [name, setName] = useState("");
+  const [group, setGroup] = useState("");
 
   const handleClose = () => {
     setIsOpen(!isOpen);
@@ -34,7 +35,7 @@ export default function Courses({ text, isOpenModal, role }) {
     <>
       {errorMessage && <p className="error"> {errorMessage} </p>}
       <div className={styles.wrapperCourses}>
-        <ChangeCourses isOpen={isOpen} handleClose={() => handleClose()} id={id} dataName={name} />
+        <ChangeCourses isOpen={isOpen} handleClose={() => handleClose()} id={id} dataName={name} dataGroup={group} />
         <p className={styles.mini_title}>{text}</p>
         {courses?.length > 0 && (
           <ul className={styles.main_wrapper}>
@@ -51,6 +52,7 @@ export default function Courses({ text, isOpenModal, role }) {
                         setIsOpen(!isOpen);
                         setId(item.id);
                         setName(item.name);
+                        setGroup(item.group_name)
                       }}
                     />
                   </li>
