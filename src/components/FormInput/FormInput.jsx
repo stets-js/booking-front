@@ -19,10 +19,17 @@ const FormInput = ({
 }) => {
   const handleBlur = (e) => {
     let inputValue = e.currentTarget.value;
+  
     if (inputValue.endsWith("/")) {
       inputValue = inputValue.slice(0, -1);
-      handler(inputValue);
     }
+  
+    const questionMarkIndex = inputValue.indexOf("?");
+    if (questionMarkIndex !== -1) {
+      inputValue = inputValue.slice(0, questionMarkIndex);
+    }
+  
+    handler(inputValue);
   };
 
   return (
