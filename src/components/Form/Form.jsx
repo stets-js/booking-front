@@ -51,7 +51,7 @@ const Form = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isChangeManagerCoursesOpen, setIsChangeManagerCoursesOpen] =
     useState(false);
-  const [errorsuccessMessage, setError] = useState(false);
+  const [isError, setError] = useState(false);
   const [inputCancelClicked, setInputCancelClicked] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   
@@ -96,7 +96,7 @@ const Form = ({
         return await postUser(data)
           .then(() => {
             success(status.successMessage);
-            return !errorsuccessMessage && onSubmit && onSubmit();
+            return !isError&& onSubmit && onSubmit();
           })
           .catch((e) => {
             return error(`${status.failMessage}, ${e.message}`);
@@ -110,7 +110,7 @@ const Form = ({
           .post(data)
           .then(() => {
             success(status.successMessage);
-            return !errorsuccessMessage && onSubmit && onSubmit();
+            return !isError&& onSubmit && onSubmit();
           })
           .catch((e) => {
             return error(`${status.failMessage}, ${e.message}`);
@@ -124,7 +124,7 @@ const Form = ({
           .user(data, res.data.id)
           .then(() => {
             success(status.successMessage);
-            return !errorsuccessMessage && onSubmit && onSubmit();
+            return !isError&& onSubmit && onSubmit();
           })
           .catch((e) => {
             return error(`${status.failMessage}, ${e.message}`);
@@ -161,7 +161,7 @@ const Form = ({
           })
           .then(() => {
             success(status.successMessage);
-            return !errorsuccessMessage && onSubmit && onSubmit();
+            return !isError&& onSubmit && onSubmit();
           });
       }
 
@@ -173,10 +173,10 @@ const Form = ({
         })
         .then(() => {
           success(status.successMessage);
-          return !errorsuccessMessage && onSubmit && onSubmit();
+          return !isError&& onSubmit && onSubmit();
         });
     } catch (e) {
-      setError(!errorsuccessMessage);
+      setError(!isError);
       error(`${e.response.data.message ? e.response.data.message : e.message}`);
       console.error(e);
     }
@@ -224,7 +224,7 @@ const Form = ({
         return error(`${status.failMessageDelete}, ${e.message}`);
       });
     }
-    !errorsuccessMessage && onSubmit && onSubmit();
+    !isError&& onSubmit && onSubmit();
   };
 
   return (

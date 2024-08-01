@@ -263,7 +263,7 @@ const ConsultationInfo = ({
                   CRM Link
                 </a>
                 <div onClick={handleCopyLink}>
-                <svg width="20" height="20" viewBox="0 0 0.6 0.6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M.2.1v.3a.05.05 0 0 0 .05.05h.2A.05.05 0 0 0 .498.4V.181A.05.05 0 0 0 .484.145L.403.064A.05.05 0 0 0 .366.05H.251a.05.05 0 0 0-.05.05" stroke="#000" stroke-width=".05" stroke-linecap="round" stroke-linejoin="round"/><path d="M.4.45V.5a.05.05 0 0 1-.05.05H.149A.05.05 0 0 1 .1.498V.226a.05.05 0 0 1 .049-.05h.05" stroke="#000" stroke-width=".05" stroke-linecap="round" stroke-linejoin="round"/></svg>                </div>
+                <svg width="20" height="20" viewBox="0 0 0.6 0.6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M.2.1v.3a.05.05 0 0 0 .05.05h.2A.05.05 0 0 0 .498.4V.181A.05.05 0 0 0 .484.145L.403.064A.05.05 0 0 0 .366.05H.251a.05.05 0 0 0-.05.05" stroke="#000" strokeWidth=".05" strokeLinecap="round" strokeLinejoin="round"/><path d="M.4.45V.5a.05.05 0 0 1-.05.05H.149A.05.05 0 0 1 .1.498V.226a.05.05 0 0 1 .049-.05h.05" stroke="#000" strokeWidth=".05" strokeLinecap="round" strokeLinejoin="round"/></svg>                </div>
               </div>
               )}
             </label>

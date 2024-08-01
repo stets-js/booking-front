@@ -52,7 +52,7 @@ const Select = ({
         <select
           multiple={false}
           className={classname ? classnames(styles.select) : styles.select}
-          value={value}
+          value={value || ''}
           onChange={(e) => setValue(e.target.value)}
           required
         >

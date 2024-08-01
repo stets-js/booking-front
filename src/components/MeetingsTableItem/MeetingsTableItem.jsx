@@ -375,7 +375,7 @@ const MeetingsTableItem = ({
               className={styles.styled_button}
               type="button"
               data-modal="freeze"
-              isFreeze={freeze}
+              // isFreeze={freeze}
               onClick={typeSelection === "Free" ? handleDeleteClick : handleFreezeClick}
             >
               freeze
