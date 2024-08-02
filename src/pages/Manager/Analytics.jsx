@@ -287,7 +287,7 @@ const Analytics = () => {
                     }}
                   />
                 </div>
-                <div className={styles.item__analytic}>
+                <div className={styles.item__analytic__price}>
                   <label>Price:</label>
                   <input
                     type="number"
@@ -353,7 +353,7 @@ const Analytics = () => {
                   }}
                 />
               </div>
-              <div className={styles.item__analytic}>
+              <div className={styles.item__analytic__comment}>
                 <label>Comments:</label>
                 <input
                   type="text"
