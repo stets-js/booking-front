@@ -56,14 +56,14 @@ const setConfirmation = (slot_id, status, message) => {
 };
 
 
-const setCancelConfirmation = (slot_id, status, message) => {
+const setCancelConfirmation = (slot_id, status, message, appointment_id) => {
   const authToken = localStorage.getItem("booking");
   const { id,zoho_id } = jwtDecode(authToken);
   const headers = {
     Authorization: `Bearer ${authToken}`,
   };
   
-  const data = { slot_id, cancel_type: status, message, confirmatorId: id };
+  const data = { slot_id, cancel_type: status, message, confirmatorId: id, appointment_id };
 
   return axios
     .post(`/set_cancel_confirmation/`, data, { headers })

@@ -53,7 +53,7 @@ const ConfirmatorComments = ({ value, dispatch }) => {
   const handleMouseLeave = () => {
     setHoveredItem(null);
   };
-
+  console.log("appointments", appointments)
   return (
     <>
       {appointments.map((item) => (
@@ -129,7 +129,8 @@ const ConfirmatorComments = ({ value, dispatch }) => {
                   await setCancelConfirmation(
                     item.slot_id,
                     1,
-                    selectedReason[item.appointment_id]
+                    selectedReason[item.appointment_id],
+                    item.appointment_id
                   );
                 } catch (error) {
                   // Handle error if needed
