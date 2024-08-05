@@ -11,6 +11,7 @@ const ChangeManagerCourses = ({ isOpen, handleClose, managerId }) => {
   const [managerCourses, setManagerCourses] = useState([]);
   const [activeCourseIds, setActiveCourseIds] = useState([]);
   const [managerInfo, setManagerInfo] = useState([]);
+  
   useEffect(() => {
     getManagerCourses(managerId)
       .then((res) => {
@@ -22,7 +23,6 @@ const ChangeManagerCourses = ({ isOpen, handleClose, managerId }) => {
         setActiveCourseIds(activeIds);
       })
       .catch((error) => {
-        // Handle the error here
         console.error(error);
       });
   }, [managerId]);
@@ -51,6 +51,30 @@ const ChangeManagerCourses = ({ isOpen, handleClose, managerId }) => {
     );
   };
 
+  const handleGroupCheckboxChange = (group, isChecked) => {
+    setManagerCourses((prevCourses) =>
+      prevCourses.map((course) => {
+        if (course.group === group) {
+          const updatedCourse = {
+            ...course,
+            is_active: isChecked,
+          };
+
+          if (isChecked) {
+            setActiveCourseIds((prevIds) => [...prevIds, course.id]);
+          } else {
+            setActiveCourseIds((prevIds) =>
+              prevIds.filter((id) => id !== course.id)
+            );
+          }
+
+          return updatedCourse;
+        }
+        return course;
+      })
+    );
+  };
+
   const handleSave = () => {
     const coursesList = activeCourseIds.join(" ");
     const data = new FormData();
@@ -61,7 +85,6 @@ const ChangeManagerCourses = ({ isOpen, handleClose, managerId }) => {
         handleClose();
       })
       .catch((error) => {
-        // Handle the error here
         console.error(error);
         error("Something went wrong");
       });
@@ -80,6 +103,29 @@ const ChangeManagerCourses = ({ isOpen, handleClose, managerId }) => {
             {managerInfo.name}
           </a>
         </h3>
+        <div className={styles.groupCheckboxes}>
+          <label className={styles.groupCheckboxLabel}>
+            <input
+              type="checkbox"
+              onChange={(e) => handleGroupCheckboxChange("Not IT", e.target.checked)}
+            />
+            Select not IT
+          </label>
+          <label className={styles.groupCheckboxLabel}>
+            <input
+              type="checkbox"
+              onChange={(e) => handleGroupCheckboxChange("IT", e.target.checked)}
+            />
+            Select IT
+          </label>
+          <label className={styles.groupCheckboxLabel}>
+            <input
+              type="checkbox"
+              onChange={(e) => handleGroupCheckboxChange("Without sale", e.target.checked)}
+            />
+            Select without sales
+          </label>
+        </div>
         <div className={styles.coursesBox}>
           {managerCourses.map((course) => (
             <div key={course.id} className={styles.checkBoxDiv}>
