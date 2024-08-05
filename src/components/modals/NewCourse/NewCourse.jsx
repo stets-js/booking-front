@@ -7,6 +7,8 @@ import Form from "../../Form/Form";
 
 const NewCourse = ({ isOpen, handleClose }) => {
   const [name, setName] = useState("");
+  const [group, setGroup] = useState("");
+
 
   return (
     <>
@@ -16,6 +18,7 @@ const NewCourse = ({ isOpen, handleClose }) => {
             onSubmit={() => {
               handleClose();
               setName("");
+              setGroup("");
             }}
             isDescription={true}
             type={{ type: "post" }}
@@ -27,6 +30,7 @@ const NewCourse = ({ isOpen, handleClose }) => {
               failMessage: "Failed to create course",
             }}
             name={name}
+            group={group}
             title="New course"
           >
             <FormInput
@@ -38,6 +42,16 @@ const NewCourse = ({ isOpen, handleClose }) => {
               placeholder="Name"
               isRequired={true}
               handler={setName}
+            />
+            <FormInput
+              title="Group:"
+              type="text"
+              name="group"
+              max={80}
+              value={group}
+              placeholder="Group"
+              isRequired={true}
+              handler={setGroup}
             />
           </Form>
         </Modal>
