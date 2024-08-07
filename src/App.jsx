@@ -42,6 +42,8 @@ import Statistics from "./pages/Statistics/Statistics";
 import Footer from "./components/Footer/Footer";
 import TeamCalendar from "./pages/SuperAdmin/TeamCalendar";
 import SurveyModal from "./components/modals/SurveyModal/SurveyModal";
+import Helper from './components/Helper/Helper';
+import {FooterProvider} from './components/FooterProvider/FooterProvider';
 
 const ProtectedRoute = ({ children }) => {
   const { managerId } = useParams();
@@ -228,7 +230,10 @@ const App = () => {
         )}
       </Routes>
 
-      <Footer />
+      <FooterProvider>
+          <Footer />
+          <Helper />
+        </FooterProvider>
     </>
   );
 };
