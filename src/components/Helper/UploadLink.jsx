@@ -22,8 +22,6 @@ export default function UploadLink({ data, setData }) {
         return getDownloadURL(storageRef);
       })
     );
-
-    console.log(links);
     setData(prev => ({ ...prev, links }));
   };
 
