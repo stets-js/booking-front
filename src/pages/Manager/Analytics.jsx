@@ -391,7 +391,7 @@ const Analytics = () => {
                   >
                     {item.comments.length > 10
                       ? item.comments.substring(0, 10) + "..."
-                      : item.comments || "Click to add a comment"}
+                      : item.comments || "No comment"}
                   </div>
                 )}
               </div>
