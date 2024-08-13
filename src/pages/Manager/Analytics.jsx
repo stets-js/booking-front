@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./ManagerPage.module.scss";
 import {
   getManagerAnalytic,
@@ -142,6 +142,20 @@ const Analytics = () => {
   const handleCourseChange = (e) => {
     setSelectedCourse(e.target.value);
   };
+
+  const handleClickOutside = (event) => {
+    if (textareaRef.current && !textareaRef.current.contains(event.target)) {
+      setShowTooltip(null);
+    }
+  };
+
+  // Створюємо посилання на textarea
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -355,23 +369,30 @@ const Analytics = () => {
               </div>
               <div className={styles.item__analytic__comment}>
                 <label>Comments:</label>
-                <input
-                  type="text"
-                  value={item.comments}
-                  onMouseEnter={() => setShowTooltip(index)}
-                  onMouseLeave={() => setShowTooltip(null)}
-                  onChange={(e) => {
-                    const updatedData = analyticData.map((analyticItem) => {
-                      if (analyticItem.id === item.id) {
-                        return { ...analyticItem, comments: e.target.value };
-                      }
-                      return analyticItem;
-                    });
-                    setAnalyticData(updatedData);
-                  }}
-                />
-                {showTooltip === index && (
-                  <div className={styles.comment__tooltip}>{item.comments}</div>
+                {showTooltip === index ? (
+                  <textarea
+                    ref={textareaRef} // Прив'язуємо посилання до textarea
+                    value={item.comments}
+                    onChange={(e) => {
+                      const updatedData = analyticData.map((analyticItem) => {
+                        if (analyticItem.id === item.id) {
+                          return { ...analyticItem, comments: e.target.value };
+                        }
+                        return analyticItem;
+                      });
+                      setAnalyticData(updatedData);
+                    }}
+                    className={styles.comment__textarea}
+                  />
+                ) : (
+                  <div
+                    className={styles.comment__view}
+                    onClick={() => setShowTooltip(index)}
+                  >
+                    {item.comments.length > 10
+                      ? item.comments.substring(0, 10) + "..."
+                      : item.comments || "Click to add a comment"}
+                  </div>
                 )}
               </div>
               <div className={styles.item__analytic}>
