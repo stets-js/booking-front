@@ -44,6 +44,7 @@ import TeamCalendar from "./pages/SuperAdmin/TeamCalendar";
 import SurveyModal from "./components/modals/SurveyModal/SurveyModal";
 import Helper from './components/Helper/Helper';
 import {FooterProvider} from './components/FooterProvider/FooterProvider';
+import CallerPageWithValidation from "./pages/Caller/CallerPageValidator";
 
 const ProtectedRoute = ({ children }) => {
   const { managerId } = useParams();
@@ -184,7 +185,7 @@ const App = () => {
                     path={path.all}
                     element={<Navigate to={`confirmator/${userId}/`} />}
                   />
-                  <Route path={path.caller} element={<CallerPage confirmator />} />
+                  <Route path={path.caller} element={<CallerPageWithValidation confirmator />} />
                   </Route>
                 )}
                 <Route path={path.confirmator} element={<ConfirmatorPage />} />
