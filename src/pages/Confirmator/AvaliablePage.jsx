@@ -46,7 +46,7 @@ const AvaliablePage = () => {
         { text: "Courses", path: "../superadmin/"+path.courses },
         { text: "Search by CRM", path: "../superadmin/"+path.crm },
         { text: "Current Meetings", path: path.currentManagers },
-       
+        
       ]}
        />
 

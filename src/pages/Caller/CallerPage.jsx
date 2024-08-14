@@ -24,7 +24,7 @@ import { isManagerLoading } from "../../redux/manager/manager-selectors";
 import { getCallerLoading } from "../../redux/caller/caller-selectors";
 import CrmLinks from "../../components/CrmLinks/CrmLinks";
 
-export default function CallerPage() {
+export default function CallerPage({confirmator}) {
   const dispatch = useDispatch();
   const { callerId } = useParams();
   const [error, setError] = useState("");
@@ -84,7 +84,7 @@ export default function CallerPage() {
   return (
     <>
       <Header
-        endpoints={[
+        endpoints={confirmator ? []:[
           { text: "Current Meetings", path: path.currentManagers },
           { text: "Search by CRM", path: path.pageCrm },
         ]}

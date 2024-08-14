@@ -179,10 +179,13 @@ const App = () => {
             {(userRole === 5 || userRole === 3) && (
               <>
                 {userRole === 5 && (
+                  <Route>
                   <Route
                     path={path.all}
                     element={<Navigate to={`confirmator/${userId}/`} />}
                   />
+                  <Route path={path.caller} element={<CallerPage confirmator />} />
+                  </Route>
                 )}
                 <Route path={path.confirmator} element={<ConfirmatorPage />} />
                 <Route path={path.confirmed} element={<ConfirmedPage />} />
@@ -194,7 +197,9 @@ const App = () => {
                   />
                   <Route path={path.planning} element={<PlanningPage />} />
                   <Route path={path.crm} element={<CrmPage />} />
+                  
                 </Route>
+                
               </>
             )}
 

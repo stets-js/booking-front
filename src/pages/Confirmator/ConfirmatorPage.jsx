@@ -45,6 +45,7 @@ const ConfirmatorPage = () => {
           { text: "Confirmed", path: "../confirmed/" + confirmatorId },
           {text: "Current Meetings", path: path.currentManagers},
           { text: "Search by CRM", path: path.pageCrm },
+          { text: "Caller Confirmator", path: "/caller/67/" }
         ]}
         user={{ name: confirmatorName, role: "Confirmator" }}
       />
