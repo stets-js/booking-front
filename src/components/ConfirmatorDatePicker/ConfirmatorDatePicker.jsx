@@ -30,7 +30,7 @@ export default function ConfirmatorDatePicker() {
 
   
 
-  const [date, setDate] = useState(new Date(tableDate));
+  const [date, setDate] = useState(()=>new Date(tableDate));
   const [half, setHalf] = useState(1);
   
   const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
@@ -56,9 +56,9 @@ export default function ConfirmatorDatePicker() {
     dispatch(getConfirmatorWeek({ currentWeekId, currentDayId, half: 2 }));
   };
 
-  useEffect(() => {dispatch(resetDay());}, []);
+  // useEffect(() => {dispatch(resetDay());}, []);
 
-  useEffect(() => setDate(new Date(tableDate)), [tableDate]);
+  // useEffect(() => setDate(new Date(tableDate)), [tableDate]);
 
   useEffect(() => {
     if (!currentWeekId || !half || !tableDate || !date) return;

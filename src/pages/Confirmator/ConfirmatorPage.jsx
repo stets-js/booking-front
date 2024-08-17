@@ -26,8 +26,10 @@ const ConfirmatorPage = () => {
 
   const dispatch = useDispatch();
 
+  useEffect(() => dispatch(getCurrentConfirmator()), [])
+
   useEffect(() => {
-    dispatch(getCurrentConfirmator());
+    
     getUserById(+confirmatorId)
       .then((data) => {
         setConfirmatorName(data.data.name);
@@ -35,7 +37,7 @@ const ConfirmatorPage = () => {
       .catch((err) => {
         throw err;
       });
-  }, [confirmatorId, dispatch]);
+  }, [confirmatorId]);
 
   return (
     <>
