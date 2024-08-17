@@ -28,14 +28,12 @@ export default function ConfirmatorDatePicker() {
   const currentDayId = useSelector(getConfirmatorDay);
   //const half = useSelector(getConfirmatorHalf);
 
-  
-
-  const [date, setDate] = useState(()=>new Date(tableDate));
   const [half, setHalf] = useState(new Date().getHours() < 14 ? 1 : 2);
+  const [date, setDate] = useState(()=> tableDate ? new Date(tableDate) : new Date());
   
-  const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
   const dateDay = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-
+  const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+  
   const onClickArrowRight = () => {
     setDate(moment(date).add(1, "days")._d);
     dispatch(increaseDay());
