@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TailSpin } from "react-loader-spinner";
-import styles from "./ConfirmatorPage.module.scss"; //Оформлення
-import BgWrapper from "../../components/BgWrapper/BgWrapper"; //Елемент сторінки
-import Confirmator from "../../components/Confirmation/Confirmed";  // структурвання виводу
-import ConfirmationButtons from "../../components/ConfirmationButtons/ConfirmedButtons"; //вантажимо кнопочки
-import Header from "../../components/Header/Header";  // підключаємо шапку
+import styles from "./ConfirmatorPage.module.scss"; 
+import BgWrapper from "../../components/BgWrapper/BgWrapper"; 
+import Confirmator from "../../components/Confirmation/Confirmed";  
+import ConfirmationButtons from "../../components/ConfirmationButtons/ConfirmedButtons"; 
+import Header from "../../components/Header/Header";  
 import { useParams } from "react-router-dom";
-import { getCurrentConfirmed } from "../../redux/confirmator/confirmed-operations"; // Ключові дані
-import ConfirmatorComments from "../../components/ConfirmatorComments/ConfirmatorComments";  // коментарі 
-import ConfirmedDatePicker from "../../components/ConfirmatorDatePicker/ConfirmedDatePicker"; // дата пікер
-import { getUserById } from "../../helpers/user/user";  // отримаємо менеджерів
-import { getConfirmatorLoadings } from "../../redux/confirmator/confirmed-selectors"; // загальна проброска типів
+import { getCurrentConfirmed } from "../../redux/confirmator/confirmed-operations"; 
+import ConfirmatorComments from "../../components/ConfirmatorComments/ConfirmatorComments";  
+import ConfirmedDatePicker from "../../components/ConfirmatorDatePicker/ConfirmedDatePicker"; 
+import { getUserById } from "../../helpers/user/user"; 
+import { getConfirmatorLoadings } from "../../redux/confirmator/confirmed-selectors"; 
 
 const ConfirmedPage = () => {
   const [value, setValue] = useState("");
