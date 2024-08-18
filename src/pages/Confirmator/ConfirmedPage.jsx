@@ -22,8 +22,10 @@ const ConfirmedPage = () => {
 
   const dispatch = useDispatch();
 
+  useEffect(() => dispatch(getCurrentConfirmed()), [])
+
   useEffect(() => {
-    dispatch(getCurrentConfirmed());
+    
     getUserById(+confirmatorId)
       .then((data) => {
         setConfirmatorName(data.data.name);
@@ -31,7 +33,7 @@ const ConfirmedPage = () => {
       .catch((err) => {
         throw err;
       });
-  }, [confirmatorId, dispatch]);
+  }, [confirmatorId]);
 
   return (
     <>
