@@ -22,7 +22,17 @@ const ConfirmedPage = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(getCurrentConfirmed()), [])
+  useEffect(() => {
+    const fetchConfirmed = async () => {
+      try {
+        const result = await dispatch(getCurrentConfirmed()).unwrap();
+      } catch (error) {
+        console.error('Failed to fetch confirmed data:', error);
+      }
+    };
+  
+    fetchConfirmed();
+  }, [dispatch]);
 
   useEffect(() => {
     

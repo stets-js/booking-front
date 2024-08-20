@@ -26,7 +26,17 @@ const ConfirmatorPage = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(getCurrentConfirmator()), [])
+  useEffect(() => {
+    const fetchConfirmator = async () => {
+      try {
+        const result = await dispatch(getCurrentConfirmator()).unwrap();
+      } catch (error) {
+        console.error('Failed to fetch confirmator:', error);
+      }
+    };
+  
+    fetchConfirmator();
+  }, [dispatch]);
 
   useEffect(() => {
     
@@ -36,7 +46,7 @@ const ConfirmatorPage = () => {
       })
       .catch((err) => {
         throw err;
-      });
+      })
   }, [confirmatorId]);
 
   return (
