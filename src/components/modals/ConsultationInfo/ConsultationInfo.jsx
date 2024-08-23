@@ -48,6 +48,7 @@ const ConsultationInfo = ({
   const { managerId } = useParams();
   const [appointment, setAppointment] = useState([]);
   //const weekId = useSelector(getWeekId);
+  const userRole = useSelector((state) => state.auth.user.role);
   const [currentWeekId, setCurrentWeekId] = useState(weekId);
   const managerTable = useSelector(getTable);
 
@@ -55,6 +56,8 @@ const ConsultationInfo = ({
   //   const get = async () => await getWeekIdByTableDate();
   //   get().then((data) => setAppointment(data.data));
   // }, []);
+
+  const [withParents, setWithParents] = useState(false);
   const [followUp, setFollowUp] = useState("");
   const [onControl, setOnControl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -68,6 +71,7 @@ const ConsultationInfo = ({
           const appointmentData = await getAppointment({ id: slotId });
           setAppointment(appointmentData.data);
           setFollowUp(appointmentData.data.follow_up);
+          setWithParents(appointmentData.data.parents);
           setOnControl(appointmentData.data.on_control);
           setUnsuccessfulMessage(appointmentData.data.unsuccessful_message || "");
           setMessage(appointmentData.data.comments);
@@ -203,7 +207,7 @@ const ConsultationInfo = ({
             onSubmit={() => {
               handleClose();
               dispatch(setManagerLoading(true));
-              return postConsultationResult(+slotId, result, group, message, unsuccessfulMessage, course || appointment.course_id)
+              return postConsultationResult(+slotId, result, group, message, unsuccessfulMessage, course || appointment.course_id, withParents)
                 .then((data) => {
                   return updateSlot(
                     managerId ? managerId : manId,
@@ -231,6 +235,7 @@ const ConsultationInfo = ({
                   setCourse("");
                   setMessage("");
                   setFollowUp("");
+                  setWithParents(false);
                   setUnsuccessfulMessage("");
                   return dispatch(setManagerLoading(false));
                 });
@@ -319,6 +324,17 @@ const ConsultationInfo = ({
                 onChange={(e) => setMessage(e.target.value)}
               ></textarea>
             </label>
+            <label className={styles.input__checkbox}>
+              <input
+                className={styles.input__checkboxInput}
+                type="checkbox"
+                checked={withParents}
+                onChange={() => setWithParents(!withParents)}
+              />
+              <p className={styles.input__checkboxLabel}>With parents</p>
+            </label>
+              {(userRole !== 2) &&
+              <>
               <div className={styles.checkbox__wrapper}>
             <label className={styles.input__checkbox}>
               <input
@@ -345,9 +361,7 @@ const ConsultationInfo = ({
             </label>
               <button className={styles.btn__followUp} type="button" onClick={updateOnControl}>Update На контроль</button>
               </div>
-            {/* <label className={styles.input__label}>
-              <p className={styles.input__label}>Some Text</p>
-            </label> */}
+              </>}
           </Form>
         </Modal>
       )}

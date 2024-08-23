@@ -62,7 +62,8 @@ export default function SortByBox({
 
   return (
     <div className={styles.container}>
-      Sort By
+      Sort By:
+      <div className={styles.sortBoxWrapper}>
       <div className={sortStatus ? styles.sortBox_on : styles.sortBox}>
         <div className={styles.sortBoxText} onClick={changeSortStatus}>
           {sortText}
@@ -101,6 +102,7 @@ export default function SortByBox({
       ) : (
         <></>
       )}
+    </div>
     </div>
   );
 

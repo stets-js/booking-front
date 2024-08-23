@@ -2,7 +2,7 @@ import axios from "../axios-config";
 import {jwtDecode} from "jwt-decode";
 import { alert, notice, info, success, error } from "@pnotify/core";
 
-const postConsultationResult = (slotId, result, groupId, message, unsuccessfulMessage, course) => {
+const postConsultationResult = (slotId, result, groupId, message, unsuccessfulMessage, course, withParents) => {
   const formattedMessage = message || ""; 
   const formattedUnsuccessfulMessage = unsuccessfulMessage || "";
 
@@ -12,7 +12,8 @@ const postConsultationResult = (slotId, result, groupId, message, unsuccessfulMe
     group_id: groupId,
     message: formattedMessage,
     unsuccessful_message: formattedUnsuccessfulMessage,
-    course
+    course,
+    parents: withParents
   };
 
   return axios.post("/consultation_result", data)
