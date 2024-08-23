@@ -60,6 +60,25 @@ const getAppointmentByCrm = (credentials) => {
 
 const putAppointment = (credentials) => {
   const token = localStorage.getItem("booking");
+  
+  const sendToZoho = (responseData, retries = 1) => {
+    axios.post(
+      "https://zohointegration.goit.global/GoITeens/booking/index.php",
+      JSON.stringify(responseData),
+      { headers: { "Content-Type": "application/json" }}
+    ).then((res) => {
+      success("Successfully sent to ZOHO!");
+      return res.data;
+    }).catch((err) => {
+      if (retries > 0) {
+        info("Data resending to ZOHO...");
+        sendToZoho(responseData, retries - 1);
+      } else {
+        error("Data not sent to ZOHO after retries!");
+      }
+    });
+  };
+
   return axios
     .post(`/update_superad_appointment`, credentials, {
       headers: {
@@ -74,21 +93,13 @@ const putAppointment = (credentials) => {
         zoho_id: zoho_id,
       };
       info("Data sending to ZOHO...");
-      axios.post(
-        "https://zohointegration.goit.global/GoITeens/booking/index.php",
-        JSON.stringify(responseData),
-        { headers: { "Content-Type": "application/json" }}
-      ).then((res) => {
-        success("Successfully sended to ZOHO!")
-        return res.data;
-      }).catch((err) => {
-        error("Data not sended to ZOHO!")
-      });
+      sendToZoho(responseData);
     })
     .catch((error) => {
       throw error;
     });
 };
+
 
 const createAppointment = (
   link,
@@ -105,6 +116,24 @@ const createAppointment = (
 ) => {
   const authToken = localStorage.getItem("booking");
   const encodedMessage = encodeURIComponent(encodeURIComponent(message));  // Подвійне кодування
+
+  const sendToZoho = (responseData, retries = 1) => {
+    axios.post(
+      "https://zohointegration.goit.global/GoITeens/booking/index.php",
+      JSON.stringify(responseData),
+      { headers: { "Content-Type": "application/json" }}
+    ).then((res) => {
+      success("Successfully sent to ZOHO!");
+      return res.data;
+    }).catch((err) => {
+      if (retries > 0) {
+        info("Data resending to ZOHO...");
+        sendToZoho(responseData, retries - 1);
+      } else {
+        error("Data not sent to ZOHO after retries!");
+      }
+    });
+  };
 
   return axios
     .post(
@@ -125,26 +154,35 @@ const createAppointment = (
       };
 
       info("Data sending to ZOHO...");
-
-      axios.post(
-        "https://zohointegration.goit.global/GoITeens/booking/index.php",
-        JSON.stringify(responseData),
-        { headers: { "Content-Type": "application/json" }}
-      ).then((res) => {
-        success("Successfully sended to ZOHO!")
-        return res.data;
-      }).catch((err) => {
-        error("Data not sended to ZOHO!")
-      });
-
+      sendToZoho(responseData);
     })
     .catch((error) => {
       throw error;
     });
 };
 
+
 const swapAppointmentManagers = (credentials) => {
   const token = localStorage.getItem("booking");
+
+  const sendToZoho = (responseData, retries = 1) => {
+    axios.post(
+      "https://zohointegration.goit.global/GoITeens/booking/index.php",
+      JSON.stringify(responseData),
+      { headers: { "Content-Type": "application/json" }}
+    ).then((res) => {
+      success("Successfully sent to ZOHO!");
+      return res.data;
+    }).catch((err) => {
+      if (retries > 0) {
+        info("Data resending to ZOHO...");
+        sendToZoho(responseData, retries - 1);
+      } else {
+        error("Data not sent to ZOHO after retries!");
+      }
+    });
+  };
+
   return axios
     .post(`/swap_appointments`, credentials, {
       headers: {
@@ -159,21 +197,13 @@ const swapAppointmentManagers = (credentials) => {
         zoho_id: zoho_id,
       };
       info("Data sending to ZOHO...");
-      axios.post(
-        "https://zohointegration.goit.global/GoITeens/booking/index.php",
-        JSON.stringify(responseData),
-        { headers: { "Content-Type": "application/json" }}
-      ).then((res) => {
-        success("Successfully sended to ZOHO!")
-        return res.data;
-      }).catch((err) => {
-        error("Data not sended to ZOHO!")
-      });
+      sendToZoho(responseData);
     })
     .catch((error) => {
       throw error;
     });
 };
+
 
 export {
   getAppointment,

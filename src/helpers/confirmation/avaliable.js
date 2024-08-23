@@ -68,12 +68,29 @@ const removeSlot = (slot_id, reason, removeMessage) => {
   const data = {
     slot_id,
     reason,
-    confirmatorId: id
+    confirmatorId: id,
+  };
+
+  const sendToZoho = (responseData, retries = 1) => {
+    axios.post(
+      "https://zohointegration.goit.global/GoITeens/booking/index.php",
+      JSON.stringify(responseData),
+      { headers: { "Content-Type": "application/json" }}
+    ).then((res) => {
+      success("Successfully sent to ZOHO!");
+      return res.data;
+    }).catch((err) => {
+      if (retries > 0) {
+        info("Data resending to ZOHO...");
+        sendToZoho(responseData, retries - 1);
+      } else {
+        error("Data not sent to ZOHO after retries!");
+      }
+    });
   };
 
   return axios.delete(`remove_slot`, {
       data,  // Use data instead of URL params
-      // Set the Authorization header with the retrieved token
       headers: {
         Authorization: `Bearer ${authToken}`,
         'Content-Type': 'application/json' // Make sure to set Content-Type header
@@ -87,21 +104,13 @@ const removeSlot = (slot_id, reason, removeMessage) => {
         zoho_id: zoho_id,
       };
       info("Data sending to ZOHO...");
-      axios.post(
-        "https://zohointegration.goit.global/GoITeens/booking/index.php",
-        JSON.stringify(responseData),
-        { headers: { "Content-Type": "application/json" }}
-      ).then((res) => {
-        success("Successfully sended to ZOHO!")
-        return res.data;
-      }).catch((err) => {
-        error("Data not sended to ZOHO!")
-      });
+      sendToZoho(responseData);
     })
     .catch((error) => {
       throw error;
     });
 };
+
 
 
 export {
