@@ -250,6 +250,7 @@ const ChangeAppointentManager = ({
               <option value="no PC">No PC</option>
               <option value="no electricity">No electricity</option>
               <option value="other reasons">Other reasons</option>
+              <option value="child has no interest">Child has no interest</option>
               {/* Додайте інші причини, які вам потрібні */}
             </select>
             <div className={styles.confirm__wrapper}>

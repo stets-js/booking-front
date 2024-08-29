@@ -306,6 +306,7 @@ const ConsultationInfo = ({
               <option value="no PC">No PC</option>
               <option value="no electricity">No electricity</option>
               <option value="other reasons">Other reasons</option>
+              <option value="child has no interest">Child has no interest</option>
               </select></label>: null}
 
             <Select

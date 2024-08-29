@@ -117,6 +117,7 @@ const ConfirmatorComments = ({ value, dispatch }) => {
               <option value="no PC">no PC</option>
               <option value="no electricity">no electricity</option>
               <option value="other reasons">other reasons</option>
+              <option value="child has no interest">child has no interest</option>
               </select>
               {loadingAppointment === item.appointment_id ? (
                 <TailSpin height="25px" width="25px" color="#999DFF" />

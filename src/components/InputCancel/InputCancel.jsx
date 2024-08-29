@@ -56,6 +56,7 @@ const InputCancel = ({ InputCancelFunc }) => {
               <option value="no PC">no PC</option>
               <option value="no electricity">no electricity</option>
               <option value="other reasons">other reasons</option>
+              <option value="child has no interest">child has no interest</option>
               </select>
       <div className={styles.btn_wrapper}>
         <button className={styles.btn_yes} onClick={handleConfirm} disabled={!selectedReason}>Confirm</button>
