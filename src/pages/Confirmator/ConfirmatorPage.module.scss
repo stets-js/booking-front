@@ -275,3 +275,37 @@ z-index: 11000;
     font-size: 12px;
   }
 }
+
+.modal_comment{
+  position: absolute;
+  width: 250px;
+  height: auto;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  padding: 10px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  background-color: #fff;
+}
+.modal_comment textarea{
+  font-family: $poppins;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+  height: auto;
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+.modal_comment button{
+  font-family: $poppins;
+  font-weight: 400;
+  font-size: 18px;
+  color: #fff;
+  padding: 5px;
+  width: 100%;
+  height: auto;
+  background: #8babfc;
+  border-radius: 8px;
+}

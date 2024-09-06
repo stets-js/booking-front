@@ -10,6 +10,11 @@ import {
   resetDay,
 } from "./confirmator-operations";
 
+export const updateAppointmentComment = (appointmentId, comment) => ({
+  type: 'UPDATE_APPOINTMENT_COMMENT',
+  payload: { appointmentId, comment },
+});
+
 const INITIAL_WEEK = {
   date: null,
   day: null,
@@ -20,6 +25,15 @@ const INITIAL_WEEK = {
 const appointments = createReducer([], {
   [getCurrentConfirmator.fulfilled]: (_, { payload }) => payload.appointments,
   [getConfirmatorWeek.fulfilled]: (_, { payload }) => payload.appointments,
+  
+  'UPDATE_APPOINTMENT_COMMENT': (state, { payload }) => {
+    const { appointmentId, comment } = payload;
+    return state.map((appointment) =>
+      appointment.appointment_id === appointmentId
+        ? { ...appointment, comments: comment }
+        : appointment
+    );
+  },
 });
 
 const date = createReducer(INITIAL_WEEK, {

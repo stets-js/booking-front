@@ -58,6 +58,48 @@ const getAppointmentByCrm = (credentials) => {
     });
 };
 
+const putNewComment = (credentials) => {
+  const token = localStorage.getItem("booking");
+  
+  const sendToZoho = (responseData, retries = 1) => {
+    axios.post(
+      "https://zohointegration.goit.global/GoITeens/booking/index.php",
+      JSON.stringify(responseData),
+      { headers: { "Content-Type": "application/json" }}
+    ).then((res) => {
+      success("Successfully sent to ZOHO!");
+      return res.data;
+    }).catch((err) => {
+      if (retries > 0) {
+        info("Data resending to ZOHO...");
+        sendToZoho(responseData, retries - 1);
+      } else {
+        error("Data not sent to ZOHO after retries!");
+      }
+    });
+  };
+
+  return axios
+    .post(`/update_comment_appointment`, credentials, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      const { zoho_id } = jwtDecode(token);
+      const responseData = {
+        ...res.data,
+        action: "update_comment",
+        zoho_id: zoho_id,
+      };
+      info("Data sending to ZOHO...");
+      sendToZoho(responseData);
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
 const putAppointment = (credentials) => {
   const token = localStorage.getItem("booking");
   
@@ -215,4 +257,5 @@ export {
   getOverbookedAppointments,
   completeSurvey,
   addCallToAppointment,
+  putNewComment,
 };
