@@ -28,6 +28,7 @@ import ConsultationLogs from "./pages/SuperAdmin/ConsultationLogs";
 import SlotHistory from "./pages/SuperAdmin/SlotHistory";
 import ManagersAnalytics from "./pages/SuperAdmin/ManagersAnalytic";
 import GoogleSheets from "./pages/SuperAdmin/GoogleSheets";
+import ManagerCourses from "./pages/SuperAdmin/ManagerCourses";
 import ManagerPage from "./pages/Manager/ManagerPage";
 import ConsultationsPage from "./pages/Manager/ConsultationsPage";
 import PlanningPage from "./pages/Manager/PlanningPage";
@@ -80,6 +81,7 @@ const App = () => {
                   <Route path={path.ik} element={<ConsultationLogs />} />
                   <Route path={path.slotHistory} element={<SlotHistory />} />
                   <Route path={path.googleSheets} element={<GoogleSheets />} />
+                  <Route path={path.managerCourses} element={<ManagerCourses />} />
                 </Route>
                 <Route
                   path={path.currentManagers}

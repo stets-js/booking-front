@@ -27,6 +27,7 @@ const path = {
   ik: "ik/",
   slotHistory: "slotHistory/",
   googleSheets: "googleSheets/",
+  managerCourses: "managerCourses/",
   analytics: "analytics/",
   workingSlots: "working_slots/",
   managersAnalytics: "/managers_analytics/",
