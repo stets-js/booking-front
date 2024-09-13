@@ -10,6 +10,7 @@ const ManagerCourses = () => {
   const [selectedTeam, setSelectedTeam] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [page, setPage] = useState(1);
+  const [managerFilter, setManagerFilter] = useState(""); // Новий стан для фільтрації по менеджеру
 
   useEffect(() => {
     axios
@@ -43,15 +44,22 @@ const ManagerCourses = () => {
       data = data.filter((manager) => manager.team === Number(selectedTeam));
     }
 
+    // Фільтрація по введеному імені менеджера
+    if (managerFilter) {
+      data = data.filter((manager) =>
+        manager.name.toLowerCase().includes(managerFilter.toLowerCase())
+      );
+    }
+
     setFilteredData(data);
     if (data.length <= 30) {
-        setPage(1);
-      }
+      setPage(1);
+    }
   };
 
   useEffect(() => {
     handleFilterChange();
-  }, [selectedCourse, selectedManager, selectedTeam]);
+  }, [selectedCourse, selectedManager, selectedTeam, managerFilter]);
 
   const handleCourseChange = (event) => {
     setSelectedCourse(event.target.value);
@@ -69,6 +77,11 @@ const ManagerCourses = () => {
     setSelectedCourse("");
     setSelectedManager("");
     setSelectedTeam("");
+    setManagerFilter(""); // Скидаємо значення фільтра по менеджеру
+  };
+
+  const handleManagerFilterChange = (event) => {
+    setManagerFilter(event.target.value); // Встановлюємо введене значення для фільтра
   };
 
   return (
@@ -136,8 +149,22 @@ const ManagerCourses = () => {
         <button className={styles.reset} onClick={handleReset}>
           Reset
         </button>
-      </div>
 
+        
+      </div>
+      <div >
+          <label className={styles.label} htmlFor="manager-filter">
+            Manager filter
+          </label>
+          <input
+            className={styles.input__search}
+            id="manager-filter"
+            type="text"
+            value={managerFilter}
+            onChange={handleManagerFilterChange}
+            placeholder="Type manager name..."
+          />
+        </div>
       <div className={styles.content__wrappeer}>
         {filteredData.slice((page - 1) * 30, page * 30).map((manager) => (
           <div className={styles.content} key={manager.id}>

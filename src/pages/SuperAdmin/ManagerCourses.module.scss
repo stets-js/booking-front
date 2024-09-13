@@ -115,3 +115,23 @@
     flex-direction: column;
     gap: 20px;
   }
+  .input__search{
+    display: block;
+    width: 400px;
+    margin: 0 auto 20px;
+    background-color: $grey;
+    border-radius: 25px;
+    border: 0;
+    height: 50px;
+    padding-left: 15px;
+    font-size: 18px;
+    font-family: $poppins;
+    padding: 10px;
+    -moz-appearance: none;
+    text-align: center;
+    -webkit-appearance: none;
+    appearance: none;
+    @media screen and (max-width: $mobile) {
+      width: 100%;
+    }
+  }
