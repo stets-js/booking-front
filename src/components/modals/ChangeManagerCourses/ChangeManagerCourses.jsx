@@ -125,6 +125,13 @@ const ChangeManagerCourses = ({ isOpen, handleClose, managerId }) => {
             />
             Select without sales
           </label>
+          <label className={styles.groupCheckboxLabel}>
+            <input
+              type="checkbox"
+              onChange={(e) => handleGroupCheckboxChange("Special", e.target.checked)}
+            />
+            Select Special
+          </label>
         </div>
         <div className={styles.coursesBox}>
           {managerCourses.map((course) => (
