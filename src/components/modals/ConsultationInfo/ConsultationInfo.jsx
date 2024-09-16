@@ -332,7 +332,7 @@ const ConsultationInfo = ({
                 checked={withParents}
                 onChange={() => setWithParents(!withParents)}
               />
-              <p className={styles.input__checkboxLabel}>With parents</p>
+              <p className={styles.input__checkboxLabel}>Without parents</p>
             </label>
               {(userRole !== 2) &&
               <>
