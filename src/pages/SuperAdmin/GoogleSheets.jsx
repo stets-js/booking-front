@@ -2,6 +2,7 @@ import { success, error, defaults } from "@pnotify/core";
 import React, { useState } from "react";
 import styles from "../SuperAdmin/GoogleSheets.module.scss";
 import { pushToGoogleSheet } from "../../helpers/analytics/analytics";
+import { setNewManagersRating } from "../../helpers/manager/manager";
 import loadingGif from "../SuperAdmin/boy_loader.gif";
 
 const GoogleSheets = () => {
@@ -40,10 +41,22 @@ const GoogleSheets = () => {
     }
   };
 
+  const setManagersRating = async () => {
+    try {
+      setIsLoading(true)
+      await setNewManagersRating()
+      setIsLoading(false)
+      success("Managers rating successfully updated!")
+    } catch (err) {
+      setIsLoading(false)
+      error("Error:", err);      
+    } 
+  }
+
   return (
     <>
     <div className={styles.loader__wrapper}>
-      <h1 className={styles.main__title}>Set date range:</h1>
+      <p className={styles.main__title}>Set date range:</p>
       <div className={styles.date__wrapper}>
         <input
           type="date"
@@ -88,6 +101,12 @@ const GoogleSheets = () => {
           Working Slots
         </button>
         </div>
+      
+      </div>
+      <div>
+      <p className={styles.rating__title}>Set new managers rating:</p>
+      <button onClick={()=> setManagersRating()} type="button" className={styles.rating}>Update managers rating</button>
+
       {isLoading ? <img src={loadingGif} alt="loading..." className={styles.loader} /> : null}
       </div>
       </div>

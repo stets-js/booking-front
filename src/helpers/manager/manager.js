@@ -22,6 +22,15 @@ const getManagers = () => {
     });
 };
 
+const setNewManagersRating = () => {
+  return axios
+    .post("/set_managers_rating")
+    .then((res) => res.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
 const getManagerById = (managerId) => {
   return axios
     .get(`/manager/${managerId}`)
@@ -211,4 +220,5 @@ export {
   getManagersByCourse,
   getDateByWeekId,
   getAvailableManagersByCourse,
+  setNewManagersRating,
 };
