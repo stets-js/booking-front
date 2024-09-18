@@ -56,9 +56,9 @@ export default function ConsultationLogs() {
 
   const sortAndSetData = (data) => {
       if (sortDate) {
-          data.sort((a, b) => new Date(a.date) - new Date(b.date));
-      } else {
           data.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else {
+          data.sort((a, b) => new Date(a.date) - new Date(b.date));
       }
       const filteredData = selectedAction ? data.filter(item => item.action === selectedAction) : data;
       setData(filteredData);
