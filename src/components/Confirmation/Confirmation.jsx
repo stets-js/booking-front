@@ -23,40 +23,13 @@ const Confirmator = () => {
   const transformAppointmentData = (appointment) => {
     const isHighlighted = hasOverbooking(appointment.manager_name);
 
-    function makeCall(phoneNumber) {
-      const url = 'https://wpk3y8.api.infobip.com/calls/1/calls';
-      const apiKey = 'I3abYM7O9m4PMlVxJBif5WsmlVDwoLLA'; // Замініть на ваш API ключ
-  
-      const data = {
-          from: '380736475076', // Замініть на ваш номер
-          to: phoneNumber,
-          text: 'This is a test call from Infobip.'
-      };
-  
-      fetch(url, {
-          method: 'POST',
-          headers: {
-              'Authorization': `App ${apiKey}`,
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .then(data => {
-          console.log('Call initiated successfully:', data);
-      })
-      .catch(error => {
-          console.error('Error initiating call:', error);
-      });
-  }
-
     return (
       <li
         key={appointment.appointment_id}
         className={`${styles.ul_items} ${isHighlighted ? styles.highlight : ''}`}
       >
         <p className={styles.ul_items_text}>
-          {appointment.hour}:00, {appointment.course}, {appointment.manager_name}, <span className={styles.makeCall} onClick={()=>makeCall(appointment.phone)}>{appointment.phone}</span>
+          {appointment.hour}:00, {appointment.course}, {appointment.manager_name}, {appointment.phone}
         </p>
         <a className={styles.link} target="_blank" href={appointment.crm_link} rel="noreferrer">
           Link
