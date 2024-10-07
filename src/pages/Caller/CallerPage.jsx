@@ -25,7 +25,7 @@ import { getCallerLoading } from "../../redux/caller/caller-selectors";
 import CrmLinks from "../../components/CrmLinks/CrmLinks";
 
 const SALES_DEPARTMENT_ID = 31;
-const STUDY_ID = 31;
+const STUDY_ID = 85;
 const WITHOUT_SALES_DEFAULT_COURSE = 53;
 const DEFAULT_COURSE = 3;
 
