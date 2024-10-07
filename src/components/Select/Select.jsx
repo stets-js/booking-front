@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import classnames from "classnames";
 import styles from "./Select.module.scss";
 
+const SALES_DEPARTMENT_ALLOWED_IDS = [55, 53];
+const STUDY_DEPARTMENT_ALLOWED_IDS = [55, 53];
+
 const Select = ({
   classname,
   type,
@@ -83,9 +86,12 @@ const Select = ({
           )}
 
           {data.map((i) => {
-            // Додайте умову для відображення курсів тільки у випадку, коли callerName === "Sales Department"
-            if (callerName === "Sales Department" && ![55, 53].includes(i.id)) {
-              return null; // Приховати всі інші курси, крім 55 та 53
+            
+            if (callerName === "Sales Department" && !SALES_DEPARTMENT_ALLOWED_IDS.includes(i.id)) {
+              return null; 
+            }
+            if (callerName === "Study" && !STUDY_DEPARTMENT_ALLOWED_IDS.includes(i.id)) {
+              return null;
             }
 
             // Інакше відображайте всі курси
