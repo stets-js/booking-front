@@ -26,7 +26,7 @@ import CrmLinks from "../../components/CrmLinks/CrmLinks";
 
 const SALES_DEPARTMENT_ID = 31;
 const SALES_DEPARTMENT_DEFAULT_COURSE = 53;
-const DEFAULT_COURSE = 3;
+const DEFAULT_COURSE = 53;
 
 
 export default function CallerPage({confirmator}) {
