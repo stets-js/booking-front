@@ -25,8 +25,9 @@ import { getCallerLoading } from "../../redux/caller/caller-selectors";
 import CrmLinks from "../../components/CrmLinks/CrmLinks";
 
 const SALES_DEPARTMENT_ID = 31;
-const SALES_DEPARTMENT_DEFAULT_COURSE = 53;
-const DEFAULT_COURSE = 53;
+const STUDY_ID = 31;
+const WITHOUT_SALES_DEFAULT_COURSE = 53;
+const DEFAULT_COURSE = 3;
 
 
 export default function CallerPage({confirmator}) {
@@ -39,7 +40,7 @@ export default function CallerPage({confirmator}) {
   const weekId = useSelector(getWeekId);
   const managerLoading = useSelector(isManagerLoading);
   const callerLoading = useSelector(getCallerLoading);
-  const [courseId, setCourses] = useState(+callerId === SALES_DEPARTMENT_ID ? SALES_DEPARTMENT_DEFAULT_COURSE : DEFAULT_COURSE);
+  const [courseId, setCourses] = useState(+callerId === SALES_DEPARTMENT_ID ? WITHOUT_SALES_DEFAULT_COURSE : +callerId === STUDY_ID ? WITHOUT_SALES_DEFAULT_COURSE : DEFAULT_COURSE);
   const [managerId, setManagerId] = useState("All");
 
   useEffect(() => {
