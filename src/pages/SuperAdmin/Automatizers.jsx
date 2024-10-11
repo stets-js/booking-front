@@ -19,7 +19,7 @@ const Automatizers = () => {
   });
   const userRole = useSelector((state) => state.auth.user.role);
   
-console.log("data", data)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
