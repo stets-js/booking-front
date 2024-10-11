@@ -20,7 +20,6 @@ const Automatizers = () => {
   const userRole = useSelector((state) => state.auth.user.role);
   
 
-  // Fetch data
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,7 +35,7 @@ const Automatizers = () => {
     fetchData();
   }, []);
 
-  // Filter data
+ 
   useEffect(() => {
     const filtered = data.filter((item) => {
       const matchCategory = filters.Product_Category
@@ -54,10 +53,10 @@ const Automatizers = () => {
       return matchCategory && matchName && matchDate && matchSearchQuery;
     });
     setFilteredData(filtered);
-    setCurrentPage(1); // Reset to first page after filtering
+    setCurrentPage(1); 
   }, [filters, data]);
 
-  // Handle page change
+ 
   const handlePageChange = (direction) => {
     if (direction === "next" && currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
       setCurrentPage(currentPage + 1);
@@ -66,7 +65,7 @@ const Automatizers = () => {
     }
   };
 
-  // Get current page data
+  
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
