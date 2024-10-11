@@ -18,6 +18,7 @@ const SuperAdministrator = () => {
           { text: "Current Meetings", path: path.currentManagers },
           { text: "History", path: path.history },
           { text: "Team calendar", path: path.teamCalendar },
+          { text: "Automatizers", path: path.automatizers },
             
         ]}
       />

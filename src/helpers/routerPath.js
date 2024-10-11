@@ -32,5 +32,6 @@ const path = {
   workingSlots: "working_slots/",
   managersAnalytics: "/managers_analytics/",
   teamCalendar: "/team_calendar/",
+  automatizers: "/automatizers/",
 };
 export default path;
