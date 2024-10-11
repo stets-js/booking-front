@@ -19,7 +19,7 @@ const Automatizers = () => {
   });
   const userRole = useSelector((state) => state.auth.user.role);
   
-
+console.log("data", data)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -109,7 +109,7 @@ const Automatizers = () => {
               setFilters({ ...filters, Product_Category: e.target.value })
             }
           >
-            <option value="">All Categories</option>
+            <option value="">All Courses</option>
             {[
               ...new Set(data.map((item) => item.Product_Category)),
             ].map((category) => (
@@ -126,7 +126,7 @@ const Automatizers = () => {
               setFilters({ ...filters, Product_Name: e.target.value })
             }
           >
-            <option value="">All Names</option>
+            <option value="">All Groups</option>
             {[
               ...new Set(data.map((item) => item.Product_Name)),
             ].map((name) => (
@@ -143,7 +143,7 @@ const Automatizers = () => {
               setFilters({ ...filters, Training_Start_Date: e.target.value })
             }
           >
-            <option value="">All Start Dates</option>
+            <option value="">All start dates</option>
             {[
               ...new Set(data.map((item) => item.Training_Start_Date)),
             ].map((date) => (
@@ -156,7 +156,7 @@ const Automatizers = () => {
           <input
           className={styles.search}
             type="text"
-            placeholder="Search by Product Name"
+            placeholder="Search by group name..."
             value={filters.searchQuery}
             onChange={(e) =>
               setFilters({ ...filters, searchQuery: e.target.value })
@@ -170,6 +170,7 @@ const Automatizers = () => {
             <tr>
               <th>Курс</th>
               <th>Назва групи</th>
+              <th>Розклад</th>
               <th>Дата старту</th>
               <th>Заплановано учнів</th>
               <th>Фактично учнів</th>
@@ -180,6 +181,7 @@ const Automatizers = () => {
               <tr key={item.id}>
                 <td>{item.Product_Category}</td>
                 <td>{item.Product_Name}</td>
+                <td>{item.Schedule}</td>
                 <td>{item.Training_Start_Date}</td>
                 <td>{item.Students_plan}</td>
                 <td>{item.Students_fact}</td>
