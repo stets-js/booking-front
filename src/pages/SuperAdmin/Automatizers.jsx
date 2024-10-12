@@ -68,12 +68,12 @@ const Automatizers = () => {
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-  // Функція для отримання доступних груп на основі вибраного курсу
+  
   const availableGroups = filters.Product_Category
     ? data.filter((item) => item.Product_Category === filters.Product_Category)
     : data;
 
-  // Функція для отримання доступних дат на основі вибраного курсу
+  
   const availableDates = filters.Product_Category
     ? data
         .filter((item) => item.Product_Category === filters.Product_Category)
