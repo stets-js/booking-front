@@ -71,15 +71,15 @@ const Automatizers = () => {
   const availableGroups = filters.Product_Category
     ? data
         .filter((item) => item.Product_Category === filters.Product_Category)
-        .map((item) => item.Product_Name) // Get unique product names for the selected category
-    : [...new Set(data.map((item) => item.Product_Name))]; // Get all unique product names if no category is selected
+        .map((item) => item.Product_Name) 
+    : [...new Set(data.map((item) => item.Product_Name))]; 
 
   const availableDates = filters.Product_Category
     ? data
         .filter((item) => item.Product_Category === filters.Product_Category)
         .map((item) => item.Training_Start_Date)
-        .filter((date, index, self) => self.indexOf(date) === index) // Get unique dates for the selected category
-    : [...new Set(data.map((item) => item.Training_Start_Date))]; // Get all unique training start dates if no category is selected
+        .filter((date, index, self) => self.indexOf(date) === index) 
+    : [...new Set(data.map((item) => item.Training_Start_Date))]; 
 
   return (
     <>
@@ -118,9 +118,9 @@ const Automatizers = () => {
                 const selectedCategory = e.target.value;
                 setFilters({
                   Product_Category: selectedCategory,
-                  Product_Name: "", // Reset Product_Name to default
-                  Training_Start_Date: "", // Reset Training_Start_Date to default
-                  searchQuery: "", // Reset search query
+                  Product_Name: "", 
+                  Training_Start_Date: "", 
+                  searchQuery: "", 
                 });
               }}
             >
@@ -143,7 +143,7 @@ const Automatizers = () => {
               disabled={!filters.Product_Category}
             >
               <option value="">All Groups</option>
-              {[...new Set(availableGroups)].map((name) => ( // Use availableGroups directly
+              {[...new Set(availableGroups)].map((name) => (
                 <option key={name} value={name}>
                   {name}
                 </option>
