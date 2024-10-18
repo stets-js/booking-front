@@ -51,7 +51,7 @@ const Automatizers = () => {
       return matchCategory && matchName && matchDate && matchSearchQuery;
     });
     setFilteredData(filtered);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   }, [filters, data]);
 
   const handlePageChange = (direction) => {
@@ -68,17 +68,18 @@ const Automatizers = () => {
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-  
   const availableGroups = filters.Product_Category
-    ? data.filter((item) => item.Product_Category === filters.Product_Category)
-    : data;
+    ? data
+        .filter((item) => item.Product_Category === filters.Product_Category)
+        .map((item) => item.Product_Name) // Get unique product names for the selected category
+    : [...new Set(data.map((item) => item.Product_Name))]; // Get all unique product names if no category is selected
 
-  
   const availableDates = filters.Product_Category
     ? data
         .filter((item) => item.Product_Category === filters.Product_Category)
         .map((item) => item.Training_Start_Date)
-    : data.map((item) => item.Training_Start_Date);
+        .filter((date, index, self) => self.indexOf(date) === index) // Get unique dates for the selected category
+    : [...new Set(data.map((item) => item.Training_Start_Date))]; // Get all unique training start dates if no category is selected
 
   return (
     <>
@@ -113,9 +114,15 @@ const Automatizers = () => {
             <select
               className={styles.select}
               value={filters.Product_Category}
-              onChange={(e) =>
-                setFilters({ ...filters, Product_Category: e.target.value })
-              }
+              onChange={(e) => {
+                const selectedCategory = e.target.value;
+                setFilters({
+                  Product_Category: selectedCategory,
+                  Product_Name: "", // Reset Product_Name to default
+                  Training_Start_Date: "", // Reset Training_Start_Date to default
+                  searchQuery: "", // Reset search query
+                });
+              }}
             >
               <option value="">All Courses</option>
               {[...new Set(data.map((item) => item.Product_Category))].map(
@@ -136,13 +143,11 @@ const Automatizers = () => {
               disabled={!filters.Product_Category}
             >
               <option value="">All Groups</option>
-              {[...new Set(availableGroups.map((item) => item.Product_Name))].map(
-                (name) => (
-                  <option key={name} value={name}>
-                    {name}
-                  </option>
-                )
-              )}
+              {[...new Set(availableGroups)].map((name) => ( // Use availableGroups directly
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
             </select>
 
             <select
@@ -190,8 +195,8 @@ const Automatizers = () => {
                   <td>{item.Product_Name}</td>
                   <td>{item.Schedule}</td>
                   <td>{item.Training_Start_Date}</td>
-                  <td>{item.Students_plan}</td>
-                  <td>{item.Students_fact}</td>
+                  <td>{item.Planned_Students}</td>
+                  <td>{item.Actual_Students}</td>
                 </tr>
               ))}
             </tbody>
@@ -199,21 +204,21 @@ const Automatizers = () => {
 
           <div className={styles.pagination}>
             <button
-              className={styles.pagination__btn}
+              className={styles.pagination_button}
               onClick={() => handlePageChange("prev")}
               disabled={currentPage === 1}
             >
-              Page Previous
+              Previous
             </button>
-            <span>
+            <span className={styles.pagination_info}>
               Page {currentPage} of {totalPages}
             </span>
             <button
-              className={styles.pagination__btn}
+              className={styles.pagination_button}
               onClick={() => handlePageChange("next")}
               disabled={currentPage === totalPages}
             >
-              Page Next
+              Next
             </button>
           </div>
         </div>
