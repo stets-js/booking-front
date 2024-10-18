@@ -84,7 +84,7 @@ const App = () => {
                   <Route path={path.googleSheets} element={<GoogleSheets />} />
                   <Route path={path.managerCourses} element={<ManagerCourses />} />
                 </Route>
-                {/* <Route path={path.automatizers} element={<Automatizers />} /> */}
+                <Route path={path.automatizers} element={<Automatizers />} />
                 <Route
                   path={path.currentManagers}
                   element={<CurrentMeetingsPage />}
@@ -163,7 +163,7 @@ const App = () => {
                   <Route path={path.workingSlots} element={<WorkingSlots />} />
                   <Route path={path.crm} element={<CrmPage />} />
                 </Route>
-                {/* <Route path={path.automatizers} element={<Automatizers />} /> */}
+                <Route path={path.automatizers} element={<Automatizers />} />
               </>
             )}
             {userRole === 3 && (
