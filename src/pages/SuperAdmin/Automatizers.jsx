@@ -195,8 +195,8 @@ const Automatizers = () => {
                   <td>{item.Product_Name}</td>
                   <td>{item.Schedule}</td>
                   <td>{item.Training_Start_Date}</td>
-                  <td>{item.Planned_Students}</td>
-                  <td>{item.Actual_Students}</td>
+                  <td>{item.Students_plan}</td>
+                  <td>{item.Students_fact}</td>
                 </tr>
               ))}
             </tbody>
